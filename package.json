@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@ngxs/store": "^3.7.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.0"
+  },
+  "devDependencies": {
+    "@ngxs/devtools-plugin": "^3.7.6"
+  }
+}

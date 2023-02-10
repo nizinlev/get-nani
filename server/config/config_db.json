@@ -1,0 +1,5 @@
+{
+    "mongoURI": "mongodb+srv://nitzan:3tVp3LjvGl1Z49G7@cluster0.jcqaovf.mongodb.net/get_nani",
+    "port": 5000,
+    "host": "localhost"
+  }
