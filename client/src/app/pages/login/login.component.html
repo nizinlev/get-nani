@@ -8,19 +8,28 @@
   </mat-card-header>
 
   <mat-card-content>
-    <form #f="ngForm" (ngSubmit)="saveData()">
-      <mat-form-field appearance="outline">
-        <mat-label>name</mat-label>
-        <input matInput placeholder="Enter Name" required>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+      <mat-form-field appearance="fill">
+        <mat-label>username</mat-label>
+        <input matInput placeholder="Enter username" formControlName="name" required>
+        <mat-error *ngIf="loginForm.get('name')?.errors?.['required']"> username is required.</mat-error>
+        <mat-error *ngIf="loginForm.get('name')?.errors?.['minlength']">  must be at least 3 characters long.</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="fill">
         <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
+        <input matInput formControlName="pass" [type]="hide ? 'password' : 'text'" required>
         <button mat-icon-button matSuffix (click)="hide = !hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
+        <mat-error *ngIf="loginForm.get('pass')?.errors?.['required']"> this filed is empty.</mat-error>
+        <mat-error *ngIf="loginForm.get('pass')?.errors?.['minlength']">  must be at least 6 characters long.</mat-error>
       </mat-form-field>
+      <mat-error *ngIf="showErr">
+        {{errMsg}}
+      </mat-error>
       <button type="submit">Login</button>
     </form>
+
+    <a href="signup">Register now...</a>
   </mat-card-content>
 </mat-card>

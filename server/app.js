@@ -5,7 +5,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const config = require('./config/config_db.json');
-const userFunc = require('./routes/main_user');
+const userFunc = require('./routes/user');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -27,10 +27,12 @@ mongoose.connect(config.mongoURI, {
 
 
 
-app.use('/', userFunc);
+app.use('/user', userFunc);
 
 
 
 app.listen(config.port, config.host, () => {
     console.log(`Server started on host ${host} and port ${port}`);
 });
+
+

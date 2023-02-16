@@ -41,6 +41,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -85,7 +86,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

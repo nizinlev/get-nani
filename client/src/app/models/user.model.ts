@@ -2,7 +2,7 @@ import { Rate } from "./rate.model";
 
 export interface User {
   id: number;
-  UserName: string;
+  username: string;
   password: string;
   hashPass: string;
   email: string;

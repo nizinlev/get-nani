@@ -6,10 +6,6 @@ const naniSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    role: {
-        type: String,
-        required: true
-    },
     age: {
         type: Number,
         required: true
@@ -24,11 +20,9 @@ const naniSchema = new mongoose.Schema({
     },
     about: {
         type: String,
-        required: true
     },
     rating: {
         type: Number,
-        required: true
     }
 });
 module.exports = mongoose.model('Nani', naniSchema);

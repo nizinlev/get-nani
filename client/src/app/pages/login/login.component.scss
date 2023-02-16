@@ -12,14 +12,29 @@ mat-card {
 mat-form-field {
     display: block;
     width: 100%;
+    margin-bottom: 1em;
 }
 
 button[type="submit"] {
     display: block;
     margin: 0 auto;
+    margin-top: 1em;
+    margin-bottom: 2em;
 }
 .img{
     display: flex;
     justify-content: center;
     margin: auto;
 }
+
+img{
+    border-radius: 11em; 
+}
+
+a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #FFB347;
+  }

@@ -1,0 +1,60 @@
+mat-card {
+    width: 60%;
+    height: inherit;
+    margin: auto;
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+
+
+mat-card > :first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-card > *:not(:first-child) {
+    
+    display: block;
+    margin: auto;
+}
+
+mat-form-field {
+    display: block;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+mat-vertical-stepper {
+    display: block;
+    width: 80%;
+    position: relative;
+    right: 5%;
+
+}
+
+@media (max-width:420px) {
+    mat-vertical-stepper {
+        display: block;
+        width: 100%;
+        padding-right: 0px;
+
+    }
+}
+
+button[type="submit"] {
+    display: block;
+    margin-top: 1em;
+}
+
+.img {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+img {
+    border-radius: 11em;
+}

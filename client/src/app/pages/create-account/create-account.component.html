@@ -1,1 +1,191 @@
-<p>create-account works!</p>
+<div class="img">
+    <img src="../../../assets/img/get nani_icon_130_130.png">
+</div>
+
+<mat-card>
+    <button class="back-btn" mat-raised-button color="primary" (click)="back()">
+        <mat-icon>keyboard_backspace </mat-icon>back
+    </button>
+    <mat-card-header>
+        <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+
+    <mat-vertical-stepper class="mat-vertical-stepper" [linear]="false" #stepper animationDuration="300">
+        <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Personal Details</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>first name</mat-label>
+                    <input matInput placeholder="First name" formControlName="firstName">
+                    <mat-error *ngIf="firstName?.errors?.['required']"> first name is required.</mat-error>
+                    <mat-error *ngIf="firstName?.errors?.['minlength']"> must be at least 3 characters long.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>last name</mat-label>
+                    <input matInput placeholder="Last name" formControlName="lastName">
+                    <mat-error *ngIf="lastName?.errors?.['required']"> last name is required.</mat-error>
+                    <mat-error *ngIf="lastName?.errors?.['minlength']"> must be at least 3 characters long.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>ID number</mat-label>
+                    <input matInput placeholder="Enter ID" formControlName="id" required>
+                    <mat-error *ngIf="id?.errors?.['required']"> ID is required.</mat-error>
+                    <mat-error *ngIf="id?.errors?.['minlength'] 
+                    || id?.errors?.['maxlength'] 
+                    || id?.errors?.['pattern']"> only 9 characters long, only numeric.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>gender</mat-label>
+                    <mat-select formControlName="gender" appearance="fill">
+                        <mat-option *ngFor="let gender of genders" [value]="gender">
+                            {{gender}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="gender?.errors?.['required']"> gender is required.</mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>User Details</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="username" formControlName="username">
+                    <mat-error *ngIf="username?.errors?.['required']"> username is required.</mat-error>
+                    <mat-error *ngIf="username?.errors?.['minlength']"> must be at least 3 characters long.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Who are you?</mat-label>
+                    <mat-select formControlName="role" appearance="fill">
+                        <mat-option *ngFor="let role of roles" [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="gender?.errors?.['required']"> gender is required.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder="password" formControlName="password">
+                    <mat-error *ngIf="password?.errors?.['required']"> password is required.</mat-error>
+                    <mat-error *ngIf="password?.errors?.['minlength']"> must be at least 6 characters long.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput placeholder="password" formControlName="confirmPassword">
+                    <mat-error *ngIf="confirmPassword?.errors?.['required']"> required.</mat-error>
+                    <mat-error *ngIf="confirmPassword?.errors?.['minlength']"> must be at least 6 characters long.</mat-error>
+                    <mat-error *ngIf="confirmPassword?.errors?.['notSame']"> passwords not match.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput placeholder="phone number" formControlName="phoneNumber">
+                    <mat-error *ngIf="phoneNumber?.errors?.['required']"> required.</mat-error>
+                    <mat-error *ngIf="phoneNumber?.errors?.['minlength'] || phoneNumber?.errors?.['pattern']"> Incorrect
+                        phone number.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="email" formControlName="email">
+                    <mat-error *ngIf="email?.errors?.['required']"> email is required.</mat-error>
+                    <mat-error *ngIf="email?.errors?.['email']"> invalid email.</mat-error>
+                </mat-form-field>
+            </form>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step [stepControl]="naniFormGroup" *ngIf="role?.value !== 'parent'">
+            <form [formGroup]="naniFormGroup">
+                <ng-template matStepLabel>Role Details</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Age</mat-label>
+                    <input type="number" matInput placeholder="username" formControlName="age">
+                    <mat-error *ngIf="age?.errors?.['required']"> enter age.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>How many time your experience</mat-label>
+                    <input type="number" matInput placeholder="experience..." formControlName="experienceYears">
+                    <mat-error *ngIf="expNani?.errors?.['required']"> experience years is required.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Residence</mat-label>
+                    <mat-select formControlName="residence" appearance="fill">
+                        <mat-option *ngFor="let role of roles" [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="placeNani?.errors?.['required']"> enter place.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>About</mat-label>
+                    <textarea matInput placeholder="Tell about yourself a fwo words" formControlName="about"></textarea>
+                </mat-form-field>
+            </form>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step [stepControl]="parentFormGroup" *ngIf="role?.value === 'parent'">
+            <form [formGroup]="parentFormGroup">
+                <ng-template matStepLabel>Role Details</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Child Name</mat-label>
+                    <input matInput placeholder="child name..." formControlName="childName">
+                    <mat-error *ngIf="childName?.errors?.['required']"> name is required.</mat-error>
+                    <mat-error *ngIf="childName?.errors?.['minlength']"> must be at least 6 characters long.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Child Age</mat-label>
+                    <input type="number" matInput placeholder="childAge" formControlName="childAge">
+                    <mat-error *ngIf="childAge?.errors?.['required']"> enter age.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Residence</mat-label>
+                    <mat-select formControlName="childResidence" appearance="fill">
+                        <mat-option *ngFor="let role of roles" [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="placePare?.errors?.['required']"> enter place.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>gender</mat-label>
+                    <mat-select formControlName="childGender" appearance="fill">
+                        <mat-option *ngFor="let gender of genders" [value]="gender">
+                            {{gender}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="childGender?.errors?.['required']"> gender is required.</mat-error>
+                </mat-form-field>
+
+            </form>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Confirm Credentials</ng-template>
+                <strong>Almost done!!</strong><br>
+                <strong>New username:</strong> {{username?.value}}<br>
+                <strong>Phone:</strong> {{phoneNumber?.value}}<br>
+                <strong>Email:</strong> {{email?.value}}<br>
+                <strong>Password:</strong> {{password?.value}}
+                
+                <div>
+                    <button mat-button 
+                    (click)="onSubmit(firstFormGroup.value,secondFormGroup.value,role?.value !== 'parent'? naniFormGroup.value : parentFormGroup.value)"
+                    matStepperPrevious>Confirm</button>
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                </div>
+        </mat-step>
+    </mat-vertical-stepper>
+</mat-card>
+
+
+
+
+<!-- <div *ngIf="firstName?.touched && firstName?.invalid">
+</div> -->
