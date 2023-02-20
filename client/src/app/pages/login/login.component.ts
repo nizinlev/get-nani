@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthServiceService } from './../../serveices/auth.service.service';
 import { DataService } from './../../serveices/data.service';
 import { Component, OnInit } from '@angular/core';
@@ -6,7 +7,6 @@ import { Store } from '@ngxs/store';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { Observable } from 'rxjs';
-import { SetPerson } from 'src/app/actions/person.action';
 
 @Component({
   selector: 'app-login',
@@ -22,10 +22,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private http: HttpClient,
     private fb: FormBuilder,
-    private ds: DataService,
-    private authServe: AuthServiceService
+    private authServe: AuthServiceService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -34,7 +33,20 @@ export class LoginComponent implements OnInit {
     this.currentUser$ = this.store.select((state) => state.current.user);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.__checkUserConnect();
+  }
+
+  async __checkUserConnect(): Promise<void> {
+    const isLoggedIn = await this.authServe.authLoginData();
+    if (isLoggedIn) {
+      // Navigate to home page
+      this.router.navigate(['/dash']);
+    } else {
+      // Navigate to dashboard page
+      this.router.navigate(['/']);
+    }
+  }
 
   onSubmit(dataForm: any) {
     this.clearErrors();
@@ -68,16 +80,18 @@ export class LoginComponent implements OnInit {
   verifyUser(dataForm: any) {
     // TODO: valid in backend.
     this.authServe.login(dataForm.name, dataForm.pass)
-      .then()
+      .then(res=>{
+        if(res.success){
+          this.router.navigate(['/dash'])
+        }
+        else{
+          alert('username or password wrong')
+        }
+      })
       .catch((err) => {
         console.log(err);
+        alert('username or password wrong222')
       })
-      .finally(() => {
-        // TODO: navigate
-        this.currentUser$.subscribe((x) => {
-          alert(x.username);
-        });
-      });
   }
 
   clearErrors() {

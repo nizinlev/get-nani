@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/serveices/data.service';
 import { Router } from '@angular/router';
+import { combineLatest, defaultIfEmpty, filter, map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
 
 @Component({
   selector: 'app-create-account',
@@ -38,7 +39,13 @@ export class CreateAccountComponent implements OnInit {
 
   genders = ['male', 'female'];
   roles= ['nani', 'parent'];
-  constructor(private fb: FormBuilder,  private authServe: AuthServiceService, private router:Router , private navServe:NavigationServiceService) {
+  allCities$: Observable<string[]>;
+  filterCities$:Observable<string[]>|undefined;
+  filter$:Observable<string>|undefined;
+  filterCitiesParent$:Observable<string[]>|undefined;
+  filterParent$:Observable<string>|undefined;
+
+  constructor(private fb: FormBuilder, private ds:DataService,  private authServe: AuthServiceService, private router:Router , private navServe:NavigationServiceService) {
     
     this.firstFormGroup = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -66,12 +73,23 @@ export class CreateAccountComponent implements OnInit {
       childName: ['', [Validators.required, Validators.minLength(3)]],
       childAge: ['', [Validators.required]],
       childResidence: ['', [Validators.required]],
-      // need to call Api
       childGender: ['', [Validators.required]],
       });
-  }
-
-  ngOnInit() {
+      // autocomplete form
+      this.allCities$=this.ds.getCities();
+      this.filter$= this.placeNani?.valueChanges;
+      this.filterCities$=this.filter$?.pipe(
+        withLatestFrom(this.allCities$),
+        map(([strFil, cities]) => cities.filter(city => city.includes(strFil)))
+      );
+      this.filterParent$= this.placePare?.valueChanges;
+      this.filterCitiesParent$=this.filterParent$?.pipe(
+        withLatestFrom(this.allCities$),
+        map(([strFil, cities]) => cities.filter(city => city.includes(strFil)))
+      );
+    } 
+    
+    ngOnInit() {
   }
 
   back(){

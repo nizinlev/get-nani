@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+    <mat-icon  id="btn-menu" (click)="toggleSidebar()">menu</mat-icon>
+  <div class="logo">
+    <img src="../../../assets/img/get nani_icon_130_130.png" alt="Logo" />
+  </div>
+  <div class="welcome">
+    Welcome, {{nameLocal}}
+  </div>
+  <span class="example-spacer"></span>
+  <div class="actions">
+    <div class="rate">
+      <mat-icon>star</mat-icon>
+      <span class="stars">5</span>
+    </div>
+    <button (click)="logout()" mat-raised-button >Out
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="isActive">
+      <mat-list>
+          <mat-list-item><button (click)="toggleSidebar()" matTooltip="home"><mat-icon>home</mat-icon></button></mat-list-item>
+          <mat-list-item><button (click)="toggleSidebar()" matTooltip="history"><mat-icon>home</mat-icon></button></mat-list-item>
+          <mat-list-item><button (click)="toggleSidebar()" matTooltip="about"><mat-icon>home</mat-icon></button></mat-list-item>
+          <mat-list-item><button (click)="toggleSidebar()" matTooltip="account"><mat-icon>home</mat-icon></button></mat-list-item>
+      </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <div>conect</div>
+      <div>conect</div>
+      <div>conect</div>
+      <div>conect</div>
+      <div>conect</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

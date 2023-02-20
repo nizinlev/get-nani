@@ -42,12 +42,14 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SidebarComponent } from './display/sidebar/sidebar.component';
+import { HeadbarComponent } from './display/headbar/headbar.component'
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CreateAccountComponent],
+  declarations: [AppComponent, LoginComponent, CreateAccountComponent, HeadbarComponent, SidebarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

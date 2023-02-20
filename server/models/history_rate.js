@@ -5,7 +5,7 @@ const historyRateSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    by_how: {
+    by_who: {
         type: String,
         required: true
     },
@@ -22,5 +22,6 @@ const historyRateSchema = new mongoose.Schema({
         required: true
     }
 });
+// const HistoryRate=  mongoose.model('HistoryRate', historyRateSchema);
 
-module.exports = mongoose.model('HistoryRate', historyRateSchema);
+module.exports = historyRateSchema;

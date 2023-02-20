@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const historyRateSchema = require('../models/history_rate');
+
 
 const naniSchema = new mongoose.Schema({
     id: {
@@ -23,6 +25,19 @@ const naniSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
+    },
+    history:{
+        type: [historyRateSchema],
+        require: true,
+        default: []
     }
 });
+
 module.exports = mongoose.model('Nani', naniSchema);
+// naniSchema.add({
+//     history:{
+//         type: [historyRateSchema],
+//         require: true,
+//         default: []
+//     }
+// })
