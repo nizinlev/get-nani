@@ -82,5 +82,14 @@ router.post('/add_user', async (req, res) => {
   }
 })
 
+router.get('/all_nanis', (req, res)=>{
+  let allNanis = Nani.find();
+  return allNanis
+})
+
+router.get('/all_all_parents', (req, res)=>{
+  let allParents = Parent.find();
+  return allParens
+})
 
 module.exports = router;

@@ -1,3 +1,9 @@
+import { AddOfferComponent } from './pages/add-offer/add-offer.component';
+import { AddRatingComponent } from './pages/add-rating/add-rating.component';
+import { HistoryComponent } from './pages/history/history.component';
+import { WorkListComponent } from './pages/work-list/work-list.component';
+import { DashComponent } from './pages/dash/dash.component';
+import { LoginGuardGuard } from './guards/login-guard.guard';
 import { SidebarComponent } from './display/sidebar/sidebar.component';
 import { HeadbarComponent } from './display/headbar/headbar.component';
 import { NgModule, Component } from '@angular/core';
@@ -9,7 +15,16 @@ const routes: Routes = [
   {path: '' , redirectTo: 'login', pathMatch: 'full'},
   {path: 'login' , component: LoginComponent},
   {path: 'signup' , component: CreateAccountComponent},
-  {path: 'dash' , component: HeadbarComponent},
+  {path: 'dash' , component: HeadbarComponent , canActivate: [LoginGuardGuard],
+   children:[
+    {path: '' , redirectTo: 'home', pathMatch: 'full',outlet: 'secondary'},
+    {path: 'home' , component: DashComponent, outlet: 'secondary'},
+    {path: 'list' , component: WorkListComponent, outlet: 'secondary', pathMatch: 'full'},
+    {path: 'history' , component: HistoryComponent, outlet: 'secondary', pathMatch: 'full'},
+    {path: 'add-rating' , component: AddRatingComponent, outlet: 'secondary', pathMatch: 'full'},
+    {path: 'add-offer' , component: AddOfferComponent, outlet: 'secondary', pathMatch: 'full'},
+
+  ]},
 
 ];
 

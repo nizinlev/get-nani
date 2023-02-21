@@ -19,6 +19,7 @@ import { User } from '../models/user.model';
 export class AuthServiceService {
   localStoreData: any;
   nameLocal: string | undefined;
+  isLogin: boolean | undefined;
 
   private readonly BASE_URL = 'http://localhost:5000';
   public REST_API_ADD_USER = '/user/add_user';
@@ -34,9 +35,11 @@ export class AuthServiceService {
     password: string
   ): Promise<{ success: boolean; error?: any }> {
     try {
-      const data = await this.http.post<any>(this.BASE_URL + this.REST_API_LOGIN, { username, password })
+      const data = await this.http
+        .post<any>(this.BASE_URL + this.REST_API_LOGIN, { username, password })
         .toPromise();
-      if(!data){
+      if (!data) {
+        this.isLogin = false;
         return { success: false };
       }
       const { user, person, role } = data;
@@ -53,17 +56,21 @@ export class AuthServiceService {
             }
           });
       });
+      this.isLogin = true;
       return { success: true };
     } catch (error) {
       console.error('Login error:', error);
+      this.isLogin = false;
       return { success: false, error };
     }
   }
 
   async authLoginData(): Promise<boolean> {
     this.localStoreData = localStorage.getItem('user');
-    this.nameLocal = this.localStoreData ? JSON.parse(this.localStoreData).username : null;
-    if(!!this.nameLocal) {
+    this.nameLocal = this.localStoreData
+      ? JSON.parse(this.localStoreData).username
+      : null;
+    if (!!this.nameLocal) {
       let pass = this.localStoreData
         ? JSON.parse(this.localStoreData).password
         : null;

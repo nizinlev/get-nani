@@ -43,13 +43,20 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './display/sidebar/sidebar.component';
-import { HeadbarComponent } from './display/headbar/headbar.component'
+import { HeadbarComponent } from './display/headbar/headbar.component';
+import { AddRatingComponent } from './pages/add-rating/add-rating.component';
+import { HistoryComponent } from './pages/history/history.component';
+import { AddOfferComponent } from './pages/add-offer/add-offer.component';
+import { WorkListComponent } from './pages/work-list/work-list.component';
+import { DashComponent } from './pages/dash/dash.component';
+// import { NgxStarRatingModule } from 'ngx-star-rating';
+// import { RatingModule } from 'ngx-bootstrap/rating';
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CreateAccountComponent, HeadbarComponent, SidebarComponent],
+  declarations: [AppComponent, LoginComponent, CreateAccountComponent, HeadbarComponent, SidebarComponent, AddRatingComponent, HistoryComponent, AddOfferComponent, WorkListComponent, DashComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -90,6 +97,8 @@ import { HeadbarComponent } from './display/headbar/headbar.component'
     MatPaginatorModule,
     MatCheckboxModule,
     ReactiveFormsModule,
+    // NgxStarRatingModule,
+    // RatingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -8,6 +8,12 @@ import { catchError, map, Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
+
+  private readonly BASE_URL = 'http://localhost:5000';
+  private REST_API_ALL_PARENTS = '/user/all_parents';
+  private REST_API_ALL_NANIS = '/user/all_nanis';
+
+
   constructor(private http: HttpClient) {}
 
   getCities():Observable<string[]> {
@@ -28,6 +34,14 @@ export class DataService {
         return of([]);
       })
     );
+  }
+
+  gatParens(){
+    return this.http.get(this.BASE_URL+this.REST_API_ALL_PARENTS,{});
+  };
+
+  gatNanis(){
+    return this.http.get(this.BASE_URL+this.REST_API_ALL_NANIS,{})
   }
 }
 
