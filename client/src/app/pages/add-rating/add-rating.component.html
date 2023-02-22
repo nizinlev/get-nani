@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="center-card">
     <mat-card-header>
       <mat-card-title>New Rate</mat-card-title>
     </mat-card-header>
@@ -8,19 +8,21 @@
           <mat-label>Employer Name</mat-label>
           <input matInput formControlName="employerName" [matAutocomplete]="auto">
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let parent of allParents$ | async" [value]="parent.name">
-              {{parent.name}}
+            <mat-option *ngFor="let parent of filterTypes" [value]="parent.username">
+              {{parent.username}}
             </mat-option>
           </mat-autocomplete>
-          <mat-error *ngIf="employerName?.errors?.['required']">Please select an employer from the list.</mat-error>
+          <mat-error *ngIf="employerName?.errors?.['required']">Please select an employer from list.</mat-error>
         </mat-form-field>
 
   
-        <!-- <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill">
           <mat-label>Rate</mat-label>
-          <ngx-star-rating formControlName="rating" [starCount]="5" [showHalfStars]="false" [size]="'24px'"></ngx-star-rating>
+          <input matInput type="number" max="5" formControlName="rating">
+          <!-- <ngx-star-rating formControlName="rating" [starCount]="5" [showHalfStars]="false" [size]="'24px'"></ngx-star-rating> -->
           <mat-error *ngIf="rating?.errors?.['required']">Please select a rating.</mat-error>
-        </mat-form-field> -->
+          <mat-error *ngIf="rating?.errors?.['max']">Can't select more than 5.</mat-error>
+        </mat-form-field>
   
         <mat-form-field appearance="fill">
           <mat-label>Description</mat-label>
@@ -28,11 +30,8 @@
           <mat-error *ngIf="description?.errors?.['required']">Please enter a description.</mat-error>
         </mat-form-field>
   
-        <button type="submit" mat-raised-button color="primary">Submit</button>
+        <button type="submit" mat-stroked-button color="primary" class="full-width">Submit</button>
       </form>
     </mat-card-content>
-    <!-- <div>
-        <rating [(ngModel)]="myRating" max="5"></rating>
-    </div> -->
   </mat-card>
   

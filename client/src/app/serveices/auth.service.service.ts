@@ -9,7 +9,6 @@ import { SetCurrentUser } from '../actions/user.action';
 import { SetPerson } from '../actions/person.action';
 import { Person } from '../models/person.model';
 import { User } from '../models/user.model';
-// import { Store } from '@ngrx/store';
 // import { AppState } from '../store/app.state';
 // import { SetCurrentUser, SetPerson, SetRole } from '../store/auth/auth.actions';
 
@@ -30,10 +29,7 @@ export class AuthServiceService {
     // this.nameLocal = this.localStoreData ? JSON.parse(this.localStoreData).username : null;
   }
 
-  async login(
-    username: string,
-    password: string
-  ): Promise<{ success: boolean; error?: any }> {
+  async login(username: string,password: string): Promise<{ success: boolean; error?: any }> {
     try {
       const data = await this.http
         .post<any>(this.BASE_URL + this.REST_API_LOGIN, { username, password })

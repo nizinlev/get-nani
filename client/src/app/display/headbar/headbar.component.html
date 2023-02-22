@@ -10,7 +10,7 @@
   <div class="actions">
     <div class="rate">
       <mat-icon>star</mat-icon>
-      <span class="stars">5</span>
+      <span class="stars">{{rateLocal}}</span>
     </div>
     <button (click)="logout()" mat-raised-button >Out
       <mat-icon>logout</mat-icon>
@@ -22,7 +22,7 @@
       <mat-list>
           <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['home']}}]" matTooltip="home"><mat-icon>home</mat-icon></button></mat-list-item>
           <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['history']}}]" matTooltip="history"><mat-icon>history</mat-icon></button></mat-list-item>
-          <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['add-rating']}}]" matTooltip="add-rating"><mat-icon>rating</mat-icon></button></mat-list-item>
+          <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['add-rating']}}]" matTooltip="add-rating"><mat-icon>add</mat-icon></button></mat-list-item>
           <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['list']}}]" matTooltip="list"><mat-icon>list</mat-icon></button></mat-list-item>
           <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['add-offer']}}]" matTooltip="add-offer"><mat-icon>offer</mat-icon></button></mat-list-item>
       </mat-list>

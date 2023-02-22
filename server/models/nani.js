@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const historyRateSchema = require('../models/history_rate');
+const {HistoryRate, historyRateSchema } = require('../models/history_rate');
 
 
 const naniSchema = new mongoose.Schema({
@@ -25,6 +25,8 @@ const naniSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
+        require:true,
+        default: 6
     },
     history:{
         type: [historyRateSchema],

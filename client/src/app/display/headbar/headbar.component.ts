@@ -1,8 +1,7 @@
-import { SidebarComponent } from './../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { AuthServiceService } from './../../serveices/auth.service.service';
 import { NavigationServiceService } from './../../serveices/navigation.service.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 
@@ -14,22 +13,32 @@ import { Store } from '@ngxs/store';
 export class HeadbarComponent implements OnInit {
   currentUser$: Observable<any>;
   username$: Observable<string>;
-  localStoreData:any;
-  nameLocal:string|null;
+  localStoreData: any;
+  nameLocal: string | null;
+  rateLocal: string | undefined;
   isActive: boolean = true;
 
-  constructor( private router: Router, private store: Store, private nav: NavigationServiceService, private auth:AuthServiceService) {
+  constructor(
+    private router: Router,
+    private store: Store,
+    private nav: NavigationServiceService,
+    private auth: AuthServiceService
+  ) {
     this.currentUser$ = this.store.select((state) => state.current);
-    this.username$ = this.store.select((state)=>state.current.user.username);
-    this.localStoreData=localStorage.getItem('user');
-    this.nameLocal=this.localStoreData?JSON.parse(this.localStoreData).username:null;
+    this.username$ = this.store.select((state) => state.current.user.username);
+    this.localStoreData = localStorage.getItem('user');
+    this.nameLocal = this.localStoreData? JSON.parse(this.localStoreData).username: null;
 
   }
 
   ngOnInit() {
+    this.currentUser$.subscribe(x=>{
+      this.rateLocal=this.showRate(x.type.rating) 
+    });
+    
     this.__checkUserConnect();
   }
-
+  
   async __checkUserConnect(): Promise<void> {
     const isLoggedIn = await this.auth.authLoginData();
     if (isLoggedIn) {
@@ -39,13 +48,22 @@ export class HeadbarComponent implements OnInit {
     }
   }
   
-
   toggleSidebar() {
     this.isActive = !this.isActive;
   }
-
+  
   logout() {
     this.auth.logout();
-    this.nav.back();
+    this.nav.logout();
+  }
+
+  showRate(rate:string): string {
+    if(rate=='6'){
+      return '--'
+    }
+    else if((rate>='0') && (rate<'6')){
+      return String(Number(rate).toFixed(1))
+    }
+    return '++'
   }
 }

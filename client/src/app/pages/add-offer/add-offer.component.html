@@ -1,1 +1,49 @@
-<p>add-offer works!</p>
+<mat-card class="center-card">
+  <mat-card-header>
+    <mat-card-title>Add Offer</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+      <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput [matDatepicker]="startTimePicker" formControlName="startTime" placeholder="Start Time">
+        <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startTimePicker></mat-datepicker>
+        <mat-error *ngIf="startTime?.invalid && startTime?.touched">Start time is required.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="finishTimePicker" formControlName="finishTime" placeholder="Finish Time">
+        <mat-datepicker-toggle matSuffix [for]="finishTimePicker"></mat-datepicker-toggle>
+        <mat-datepicker #finishTimePicker></mat-datepicker>
+        <mat-error *ngIf="finishTime?.errors?.['required']">Finish time is required.</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="location" readonly placeholder="Location" value="this.userLocation">
+        <!-- <mat-error *ngIf="location?.invalid && location?.touched">Location is required.</mat-error> -->
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="payment" placeholder="Payment">
+        <mat-icon matSuffix>attach_money</mat-icon>
+        <mat-error *ngIf="payment?.invalid && payment?.touched">Payment must be a number.</mat-error>
+      </mat-form-field>
+      <mat-error *ngIf="this.showError">Finish time is before starting.</mat-error>
+    </form>
+    </mat-card-content>
+    <mat-card-actions >
+      <button mat-raised-button color="primary" type="submit" >submit</button>
+    </mat-card-actions>
+    <p>
+      Real-time data: {{ offerForm.value | json }}
+    </p>
+    <p>
+      Real-time data: {{ offerForm.errors | json }}
+    </p>
+    <p>
+      Real-time data: {{ finishTime?.errors | json }}
+    </p>
+    <p>
+      Your form status is : {{ offerForm.status }}
+    </p>
+</mat-card>

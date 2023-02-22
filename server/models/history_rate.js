@@ -22,6 +22,6 @@ const historyRateSchema = new mongoose.Schema({
         required: true
     }
 });
-// const HistoryRate=  mongoose.model('HistoryRate', historyRateSchema);
+const HistoryRate = mongoose.model('HistoryRate', historyRateSchema);
 
-module.exports = historyRateSchema;
+module.exports = { HistoryRate, historyRateSchema };

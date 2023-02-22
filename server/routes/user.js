@@ -5,6 +5,8 @@ const User = require('../models/user');
 const Person = require('../models/person')
 const Nani = require('../models/nani')
 const Parent = require('../models/parent')
+const Offer_list= require('../models/offer_list')
+const { HistoryRate, historyRateSchema } = require('../models/history_rate')
 
 router.use(bodyParser.json());
 
@@ -82,14 +84,68 @@ router.post('/add_user', async (req, res) => {
   }
 })
 
-router.get('/all_nanis', (req, res)=>{
-  let allNanis = Nani.find();
+router.get('/all_nanis', async (req, res) => {
+  let allNanis = await User.find({ role: 'nani' });
+  res.json(allNanis)
   return allNanis
 })
 
-router.get('/all_all_parents', (req, res)=>{
-  let allParents = Parent.find();
-  return allParens
+router.get('/all_parents', async (req, res) => {
+  let allParents = await User.find({ role: 'parent' });
+  res.json(allParents)
+  return allParents;
 })
 
+router.post('/add_rating', async (req, res) => {
+  data = req.body.data
+  try {
+    let userRated = await User.findOne({ username: data.rated_id }).exec()
+    data.rated_id = userRated.id
+    let historyLen= await findHistoryLength(userRated.id,userRated.role)
+    if(historyLen>4 && userRated.role != 'nani'){
+      let rating_sum = calculateRate(userRated.id,data.sum_rating,userRated.role)
+      await Parent.findOneAndUpdate({ id: userRated.id }, { $set : {rating: rating_sum},$push: { history: data } }).exec()
+    }
+    else if(historyLen<5 && userRated.role != 'nani'){
+      await Parent.findOneAndUpdate({ id: userRated.id }, {$push: { history: data } }).exec()
+    }
+    else if(historyLen>4 && userRated.role == 'nani'){
+      let rating_sum = await calculateRate(userRated.id,data.sum_rating,userRated.role)
+      await Nani.findOneAndUpdate({ id: userRated.id }, { $set : {rating: rating_sum},$push: { history: data } }).exec()
+    }
+    else if(historyLen<5 && userRated.role == 'nani'){
+      await Nani.findOneAndUpdate({ id: userRated.id }, {$push: { history: data } }).exec()
+    }
+    let historyData = new HistoryRate(data)
+    historyData.save(data);
+    res.json({ 'success': true })
+  } catch (error) {
+    return { 'success': false }, error
+
+  }
+
+
+})
+
+async function calculateRate(id,crn_rate,role) {
+  let doc = role != 'nani' ? 
+  await Parent.findOne({id:id}).exec() :
+  await Nani.findOne({id:id}).exec();
+  let history = await doc.history;
+  let totalRating = history.reduce((acc, cur) => acc + cur.sum_rating, +crn_rate);
+  return totalRating / (history.length+1);
+}
+async function findHistoryLength(id, role) {
+  let doc = role != 'nani'
+    ? await Parent.findOne({id:id}).exec()
+    : await Nani.findOne({id:id}).exec();
+  let historyLen = doc.history;
+  return historyLen.length;
+}
+function findNaniById(id) {
+  return Nani.findOne({ id: id })
+}
+function findParentById(id) {
+  return Parent.findOne({ id: id })
+}
 module.exports = router;

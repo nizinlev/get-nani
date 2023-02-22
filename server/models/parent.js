@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const historyRateSchema = require('../models/history_rate');
+const {HistoryRate, historyRateSchema } = require('../models/history_rate');
 
 
 const parentSchema = new mongoose.Schema({
@@ -26,6 +26,8 @@ const parentSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
+        require:true,
+        default: 6
     },
     history:{
         type: [historyRateSchema],

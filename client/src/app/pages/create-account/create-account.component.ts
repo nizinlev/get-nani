@@ -93,7 +93,7 @@ export class CreateAccountComponent implements OnInit {
   }
 
   back(){
-    this.navServe.back()
+    this.navServe.logout()
   }
 
   onSubmit(personForm: Person, userForm: User ,roleForm:any) {

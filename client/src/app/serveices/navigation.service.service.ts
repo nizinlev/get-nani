@@ -28,4 +28,7 @@ export class NavigationServiceService {
   goBack() {
     this.location.back();
   }
+  logout(){
+    this.router.navigate(['/login'])
+  }
 }

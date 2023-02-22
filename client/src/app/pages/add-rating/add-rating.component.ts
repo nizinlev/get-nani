@@ -1,11 +1,10 @@
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { DataService } from './../../serveices/data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-// import { NgxStarRatingModule } from 'ngx-star-rating';
-// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { map, startWith, withLatestFrom } from 'rxjs/operators';
+import { lastValueFrom, Observable, of } from 'rxjs';
+import { flatMap, map, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
 
 @Component({
@@ -15,57 +14,114 @@ import { User } from 'src/app/models/user.model';
 })
 export class AddRatingComponent implements OnInit {
   rateForm: FormGroup;
-  allParents$: Observable<any>;
-  filter$: Observable<string> | undefined;
-  filterParent$: Observable<string> | undefined;
-  currentUser$: Observable<User>;
+  allUsersInType$: Observable<any> ;
+  filter$?: Observable<string>;
+  // filterTypes$: Observable<any> ;
+  currentUser$?: Observable<User>;
   myRating = 0;
+  toggleType: any;
+  filterTypes: any;
 
-  get description() {return this.rateForm.get('description')}
-  // get rating() {return this.rateForm.get('rating')}
-  get employerName() {return this.rateForm.get('employerName ')}
+  get description() {
+    return this.rateForm.get('description');
+  }
+  get rating() {
+    return this.rateForm.get('rating');
+  }
+  get employerName() {
+    return this.rateForm.get('employerName');
+  }
 
   constructor(
     private fb: FormBuilder,
     private ds: DataService,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {
-    this.allParents$ = this.ds.gatParens();
     this.rateForm = this.fb.group({
       employerName: ['', Validators.required],
-      // rating: [null, Validators.required],
+      rating: [null, [Validators.required, Validators.max(5)]],
       description: ['', Validators.required],
     });
-    this.filter$ = this.rateForm.get('employerName')?.valueChanges;
-    this.filterParent$ = this.filter$?.pipe(
-      withLatestFrom(this.allParents$),
-      map(([strFil, parents]) =>
-        parents.filter((parent: any) => parent.includes(strFil))
-      )
-    );
-    this.currentUser$ = this.store.select((state) => state.current.user);
+    this.currentUser$ = this.store.select(state=>state.current.user)
+    this.toggleType=localStorage.getItem('user');
+    this.toggleType=JSON.parse(this.toggleType).role;
+    this.allUsersInType$ = this.toggleType.role === 'parent' ? this.ds.getNanis() : this.ds.getParens()
+    this.filter$=this.employerName?.valueChanges;
+    
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.filter$?.subscribe(filter=>{
+      this.currentUser$?.subscribe(user=>{
+        this.toggleType=user
+        this.allUsersInType$ = this.toggleType.role === 'parent' ? this.ds.getNanis() : this.ds.getParens();
+        this.allUsersInType$.subscribe(userT=>{
+          let x =userT.filter((user:any)=> user.username.includes(filter));
+          this.filterTypes= x
+        })
+      })
+    })
+    console.log(this.filterTypes)
+  }
 
-  onSubmit() {
+  async  onSubmit() {
     if (this.rateForm.valid) {
+      let fail = await this.checkDetails();
+      if (fail) {
+        alert('name didnt exist');
+      }
       const now = new Date();
-      let currentId;
-      this.currentUser$.subscribe((user) => {
-        currentId = user.id;
+      this.currentUser$?.pipe(
+        flatMap(user => {
+          const currentId = user.id;
+          const formValue = { ...this.rateForm.value, byWho: currentId, date: now };
+          return this.ds.add_rating(formValue);
+        })
+      ).subscribe((res:any)=>{
+        if(res['success']){
+          this.router.navigate([[{ outlets: { secondary: 'home'}}]]);
+          alert(res['success']);
+        }
+        else {alert('error')}
       });
-      const formValue = { ...this.rateForm.value, byWho: currentId, date: now };
-      console.log(formValue); // Do something with the form value
     } else {
       this.rateForm.markAllAsTouched();
     }
   }
+  async checkDetails() {
+    const users = await this.allUsersInType$.toPromise();
+    let employerExist = users.some((x: any) => (x.username == this.rateForm.get('employerName')?.value)  );
+    if (
+      this.employerName?.value == '' ||
+      this.rating?.value == '' ||
+      this.description?.value == ''
+    ) {
+      return true;
+    } else if (!employerExist) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+    // const users = await this.allUsersInType$.toPromise();
+    // const employerExist = users.some((x: any) => x.username == this.employerName?.value);
+    // if (
+    //   this.employerName?.value == '' ||
+    //   this.rating?.value == '' ||
+    //   this.description?.value == ''
+    // ) {
+    //   return true;
+    // } else if (!employerExist) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
 }
 
 // // This is just an example of how you might populate the employerName field with a list of options.
 // // Replace this with your own data.
-// this.allParents$ = this.fb.array([
+// this.allUsersInType$ = this.fb.array([
 //   { name: 'Parent 1' },
 //   { name: 'Parent 2' },
 //   { name: 'Parent 3' },

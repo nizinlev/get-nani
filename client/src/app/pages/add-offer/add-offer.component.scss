@@ -1,0 +1,42 @@
+.center-card {
+  margin: auto;
+  margin-top: 3em;
+  max-width: 22rem;
+  /* Change to the desired maximum width */
+}
+
+
+mat-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+mat-form-field {
+  margin: .7em auto;
+  position: relative;
+  width: 80%;
+  display: block;
+  justify-content: center;
+}
+.mat-card-actions {
+  // margin: .7em auto;
+  // position: relative;
+  // width: 80%;
+  // display: block;
+  display: flex;
+  justify-content: center;
+}
+
+.mat-card-actions button{
+  width: 80%;
+  margin-bottom: 1em;
+}
+
+.full-width {
+  margin: auto;
+  position: relative;
+  width: 80%;
+  display: block;
+  justify-content: center;
+}
