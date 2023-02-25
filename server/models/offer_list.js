@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const offerListSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    required: true
-  },
   time_start: {
     type: Date,
     required: true
@@ -20,7 +16,11 @@ const offerListSchema = new mongoose.Schema({
   payment: {
     type: Number,
     required: true
-  }
+  },
+  id: {
+    type: String,
+    required: true,
+},
 });
 
 const OfferList = mongoose.model('OfferList', offerListSchema);

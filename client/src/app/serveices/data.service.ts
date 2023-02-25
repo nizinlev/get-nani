@@ -1,6 +1,6 @@
 import { User } from './../models/user.model';
 import { Person } from './../models/person.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpParams  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 
@@ -11,7 +11,10 @@ export class DataService {
   private readonly BASE_URL = 'http://localhost:5000';
   private REST_API_ALL_PARENTS = '/user/all_parents';
   private REST_API_ALL_NANIS = '/user/all_nanis';
-  private REST_API_Add_Rating = '/user/add_rating';
+  private REST_API_ADD_RATING = '/user/add_rating';
+  private REST_API_ADD_OFFER = '/user/add_offer';
+  private REST_API_ALL_OFFERS = '/user/all_offers/';
+  private REST_API_ALL_HISTORY = '/user/all_history/';
 
   constructor(private http: HttpClient) {}
 
@@ -44,6 +47,16 @@ export class DataService {
     return this.  http.get(this.BASE_URL + this.REST_API_ALL_NANIS, {});
   }
 
+  getAllOffers(id:string){
+    const params = new HttpParams().set('id', id);
+    return this.http.get(this.BASE_URL + this.REST_API_ALL_OFFERS, {params})
+  }
+  
+  getAllHistory(id:string){
+    const params = new HttpParams().set('id', id);
+    return this.http.get(this.BASE_URL + this.REST_API_ALL_HISTORY, {params})
+  }
+
   add_rating(ratingForm: RatingForm) {
     let data = {
       date: ratingForm.date,
@@ -54,6 +67,10 @@ export class DataService {
     };
     return this.http.post('http://localhost:5000/user/add_rating', { data })
   }
+
+  addOffer(data:OfferForm){
+    return this.http.post(this.BASE_URL + this.REST_API_ADD_OFFER,{data})
+  }
 }
 interface RatingForm {
   date: Date;
@@ -61,6 +78,13 @@ interface RatingForm {
   byWho: string;
   employerName: string;
   rating: number;
+}
+interface OfferForm {
+  id: string;
+  time_start: Date;
+  time_finish: Date;
+  location: string;
+  payment: number;
 }
 
 interface IsraelCities {

@@ -1,1 +1,17 @@
-<p>work-list works!</p>
+<div class="card-container">
+    <mat-card *ngFor="let item of newOfferList ; index as i" matTooltip="{{convertObjTooltip(item.user)}}">
+      <mat-card-header>
+        <mat-card-title>{{ item.user.username }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Start time: {{ item.time_start | date }}</p>
+        <p>End time: {{ item.time_finish | date }}</p>
+        <p>Location: {{ item.location }}</p>
+        <p>Payment: {{ item.payment | currency }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="acceptOffer(item,i)">Accept</button>
+        <button mat-button color="warn" (click)="deleteOffer(item, i)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>

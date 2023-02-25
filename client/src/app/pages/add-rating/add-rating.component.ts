@@ -16,7 +16,6 @@ export class AddRatingComponent implements OnInit {
   rateForm: FormGroup;
   allUsersInType$: Observable<any> ;
   filter$?: Observable<string>;
-  // filterTypes$: Observable<any> ;
   currentUser$?: Observable<User>;
   myRating = 0;
   toggleType: any;
@@ -62,7 +61,6 @@ export class AddRatingComponent implements OnInit {
         })
       })
     })
-    console.log(this.filterTypes)
   }
 
   async  onSubmit() {

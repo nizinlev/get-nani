@@ -2,8 +2,8 @@
   <mat-card-header>
     <mat-card-title>Add Offer</mat-card-title>
   </mat-card-header>
+  <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
   <mat-card-content>
-      <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <input matInput [matDatepicker]="startTimePicker" formControlName="startTime" placeholder="Start Time">
         <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
@@ -20,7 +20,6 @@
       
       <mat-form-field>
         <input matInput formControlName="location" readonly placeholder="Location" value="this.userLocation">
-        <!-- <mat-error *ngIf="location?.invalid && location?.touched">Location is required.</mat-error> -->
       </mat-form-field>
       
       <mat-form-field>
@@ -28,10 +27,10 @@
         <mat-icon matSuffix>attach_money</mat-icon>
         <mat-error *ngIf="payment?.invalid && payment?.touched">Payment must be a number.</mat-error>
       </mat-form-field>
-      <mat-error *ngIf="this.showError">Finish time is before starting.</mat-error>
-    </form>
+      <mat-error *ngIf="this.showError">start/finish time is invalid.</mat-error>
     </mat-card-content>
     <mat-card-actions >
-      <button mat-raised-button color="primary" type="submit" >submit</button>
+      <button mat-raised-button color="primary" type="submit">submit</button>
     </mat-card-actions>
+    </form>
 </mat-card>
