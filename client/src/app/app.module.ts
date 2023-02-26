@@ -51,6 +51,7 @@ import { WorkListComponent } from './pages/work-list/work-list.component';
 import { DashComponent } from './pages/dash/dash.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //   import { MatDatepickerModule } from '@angular/material/datepicker';
 //   import { MatNativeDateModule } from '@angular/material/core';
@@ -115,6 +116,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     ReactiveFormsModule,
     MatNativeDateModule,
     MatMomentDateModule,
+    NgbModule,
     // NgxStarRatingModule,
     // RatingModule.forRoot(),
   ],

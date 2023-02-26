@@ -17,7 +17,7 @@ export class AddRatingComponent implements OnInit {
   allUsersInType$: Observable<any> ;
   filter$?: Observable<string>;
   currentUser$?: Observable<User>;
-  myRating = 0;
+  myRating = 5;
   toggleType: any;
   filterTypes: any;
 
@@ -39,7 +39,7 @@ export class AddRatingComponent implements OnInit {
   ) {
     this.rateForm = this.fb.group({
       employerName: ['', Validators.required],
-      rating: [null, [Validators.required, Validators.max(5)]],
+      rating: [this.myRating, [Validators.required, Validators.max(5)]],
       description: ['', Validators.required],
     });
     this.currentUser$ = this.store.select(state=>state.current.user)
@@ -74,7 +74,7 @@ export class AddRatingComponent implements OnInit {
         flatMap(user => {
           const currentId = user.id;
           const formValue = { ...this.rateForm.value, byWho: currentId, date: now };
-          return this.ds.add_rating(formValue);
+           return this.ds.add_rating(formValue);
         })
       ).subscribe((res:any)=>{
         if(res['success']){

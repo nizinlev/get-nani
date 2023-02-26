@@ -4,12 +4,21 @@
   max-width: 22rem;
   /* Change to the desired maximum width */
 }
-
+ngb-rating {
+  color: #FFC107;
+  font-size: xx-large;
+}
 
 mat-card-header {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
+
+}
+.form-group{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 mat-form-field {
