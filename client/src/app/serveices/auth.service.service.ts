@@ -1,7 +1,6 @@
 import { SetEmptyPerson } from './../actions/person.action';
 import { SetEmptyUser } from './../actions/user.action';
 import { SetType, SetEmptyType } from './../actions/nani.action';
-import { CurrentState } from './../states/current.state';
 import { Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';

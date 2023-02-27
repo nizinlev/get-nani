@@ -14,7 +14,7 @@
     "@angular/cdk": "^13.0.0",
     "@angular/common": "^14.2.0",
     "@angular/compiler": "^14.2.0",
-    "@angular/core": "^14.2.0",
+    "@angular/core": "^14.2.12",
     "@angular/forms": "^14.2.12",
     "@angular/localize": "^14.2.0",
     "@angular/material": "^13.0.0",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.8",
-    "@angular/cli": "~14.2.8",
+    "@angular/cli": "^15.2.0",
     "@angular/compiler-cli": "^14.2.0",
     "@ngxs/devtools-plugin": "^3.7.6",
     "@types/jasmine": "~4.0.0",

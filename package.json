@@ -1,6 +1,9 @@
 {
   "dependencies": {
-    "@angular/material-moment-adapter": "^15.1.5",
+    "@angular/cli": "^15.2.0",
+    "@angular/material-moment-adapter": "^15.2.0",
+    "@mat-datetimepicker/core": "^11.0.3",
+    "@mat-datetimepicker/moment": "^11.0.3",
     "@ngxs/store": "^3.7.6",
     "cors": "^2.8.5",
     "express": "^4.18.2",

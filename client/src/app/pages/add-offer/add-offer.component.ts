@@ -1,20 +1,29 @@
+import { SetType } from './../../actions/nani.action';
 import { Router } from '@angular/router';
 import { DataService } from './../../serveices/data.service';
 import { Store } from '@ngxs/store';
 import { first, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-add-offer',
   templateUrl: './add-offer.component.html',
   styleUrls: ['./add-offer.component.scss'],
 })
+
 export class AddOfferComponent implements OnInit {
+
+  @ViewChild('dateInput', { static: true })
+
+  dateInput!: ElementRef;
+  
   offerForm: FormGroup;
   currentUser$: Observable<any>;
   currentType$: Observable<any>;
   userLocation: string = '';
+  typeInput:string = 'time';
   showError: boolean = false;
 
   get startTime() {
@@ -54,6 +63,11 @@ export class AddOfferComponent implements OnInit {
         location: type.residence,
       });
     });
+  }
+  openCalendar() {
+    this.dateInput.nativeElement.type = 'datetime-local';
+    this.dateInput.nativeElement.type = 'datetime-local';
+    this.dateInput.nativeElement.showPicker();
   }
 
   validateTimeRange = (group: FormGroup) => {

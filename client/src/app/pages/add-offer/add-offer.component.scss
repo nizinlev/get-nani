@@ -5,7 +5,11 @@
   /* Change to the desired maximum width */
 }
 
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 mat-card-header {
   display: flex;
   flex-direction: row;
