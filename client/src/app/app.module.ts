@@ -41,6 +41,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCommonModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './display/sidebar/sidebar.component';
 import { HeadbarComponent } from './display/headbar/headbar.component';
@@ -49,10 +52,7 @@ import { HistoryComponent } from './pages/history/history.component';
 import { AddOfferComponent } from './pages/add-offer/add-offer.component';
 import { WorkListComponent } from './pages/work-list/work-list.component';
 import { DashComponent } from './pages/dash/dash.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatCommonModule } from '@angular/material/core';
 
 import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 
