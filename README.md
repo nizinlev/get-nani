@@ -5,3 +5,4 @@ app for finding a nanny
 ייבוא של נתונים של משרד הפנים
 צירוף של כמה OBSERVABLE.
 לצרף שני טבלאות בDB
+סידור של packages וקומיטים 
