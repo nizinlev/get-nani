@@ -4,7 +4,7 @@
   </mat-card-header>
   <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
   <mat-card-content>
-      <mat-form-field>
+      <!-- <mat-form-field>
         <input matInput [matDatepicker]="startTimePicker" formControlName="startTime" placeholder="Start Time">
         <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
         <mat-datepicker #startTimePicker></mat-datepicker>
@@ -16,14 +16,33 @@
         <mat-datepicker-toggle matSuffix [for]="finishTimePicker"></mat-datepicker-toggle>
         <mat-datepicker #finishTimePicker></mat-datepicker>
         <mat-error *ngIf="finishTime?.errors?.['required']">Finish time is required.</mat-error>
+      </mat-form-field> -->
+
+      <mat-form-field>
+        <mat-label>Select Start Time</mat-label>
+        <input matInput [type]="typeInput" #dateInput formControlName="startTime" placeholder="enter time">
+        <mat-icon matSuffix>schedule</mat-icon>
+        <mat-error *ngIf="startTime?.errors?.['required']">Start time is required.</mat-error>
       </mat-form-field>
-      
+
+      <mat-form-field appearance="outline">
+        <mat-label>Input type time</mat-label>
+        <input type="time" matInput name="week" min="09:00" max="18:00">
+     </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Select Finish Time</mat-label>
+        <input matInput type="datetime-local" formControlName="finishTime" placeholder="enter time">
+        <mat-icon matSuffix>schedule</mat-icon>
+        <mat-error *ngIf="finishTime?.errors?.['required']">Finish time is required.</mat-error>
+      </mat-form-field>
+
       <mat-form-field>
         <input matInput formControlName="location" readonly placeholder="Location" value="this.userLocation">
       </mat-form-field>
       
       <mat-form-field>
-        <input matInput formControlName="payment" placeholder="Payment">
+        <input matInput type="number" formControlName="payment" placeholder="Payment">
         <mat-icon matSuffix>attach_money</mat-icon>
         <mat-error *ngIf="payment?.invalid && payment?.touched">Payment must be a number.</mat-error>
       </mat-form-field>
@@ -33,4 +52,8 @@
       <button mat-raised-button color="primary" type="submit">submit</button>
     </mat-card-actions>
     </form>
+
+    <p>
+      {{this.offerForm.value | json}}
+    </p>
 </mat-card>

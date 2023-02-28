@@ -1,5 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +18,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
@@ -41,6 +41,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCommonModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidebarComponent } from './display/sidebar/sidebar.component';
 import { HeadbarComponent } from './display/headbar/headbar.component';
@@ -49,17 +52,20 @@ import { HistoryComponent } from './pages/history/history.component';
 import { AddOfferComponent } from './pages/add-offer/add-offer.component';
 import { WorkListComponent } from './pages/work-list/work-list.component';
 import { DashComponent } from './pages/dash/dash.component';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-//   import { MatDatepickerModule } from '@angular/material/datepicker';
-//   import { MatNativeDateModule } from '@angular/material/core';
-//   import { MatInputModule } from '@angular/material/input';
-// import { MatTimepickerModule } from 'mat-timepicker';
+import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 
-// import { NgxStarRatingModule } from 'ngx-star-rating';
-// import { RatingModule } from 'ngx-bootstrap/rating';
+// import { MatDatetimepickerModule,MatNativeDatetimeModule, MAT_DATETIME_FORMATS,DatetimeAdapter } from '@mat-datetimepicker/core';
+// import { MAT_MOMENT_DATETIME_FORMATS, MomentDatetimeAdapter } from '@mat-datetimepicker/moment';
+
+
+
+
+// import { DashModule } from './pages/dash/dash.module';
+
+
+
 
 @NgModule({
   declarations: [
@@ -80,6 +86,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxsModule.forRoot([CurrentState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     FormsModule,
+    CommonModule, 
     HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -88,7 +95,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatIconModule,
     MatButtonModule,
     MatAutocompleteModule,
-    MatDatepickerModule,
     MatRadioModule,
     MatSelectModule,
     MatSliderModule,
@@ -114,16 +120,29 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatPaginatorModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    MatNativeDateModule,
-    MatMomentDateModule,
     NgbModule,
-    // NgxStarRatingModule,
-    // RatingModule.forRoot(),
-  ],
-  providers: [
+    MatNativeDateModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatMomentDateModule,
+    
+    MatNativeDatetimeModule
+
+
+    // MatDatetimepickerModule, 
+    
+  ],
+  providers: [
+    MatCommonModule,
+    CommonModule,
+    // { provide: MAT_DATETIME_FORMATS, useValue: MAT_MOMENT_DATETIME_FORMATS },
+    // { provide: DatetimeAdapter, useClass: MomentDatetimeAdapter }
+    // FormsModule,
+    // {provide: MomentDatetimeAdapter}
+    // MatDatepickerModule,
+    // MatNativeDateModule,
+    // MatMomentDateModule,
+
+    
   ],
   bootstrap: [AppComponent],
 })

@@ -7,6 +7,7 @@ import { Nani } from './../models/nani.model';
 import { Person } from '../models/person.model';
 import { Action, State, StateContext } from '@ngxs/store';
 import { SetEmptyPerson, SetPerson } from '../actions/person.action';
+import { Injectable } from '@angular/core';
 
 
 export interface CurrentStateModel {
@@ -14,7 +15,7 @@ export interface CurrentStateModel {
   personDetails: Person | null;
   type: Nani | Parent | null;
 }
-
+@Injectable()
 @State<CurrentStateModel>({
   name: 'current',
   defaults: {
