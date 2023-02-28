@@ -53,19 +53,10 @@ import { AddOfferComponent } from './pages/add-offer/add-offer.component';
 import { WorkListComponent } from './pages/work-list/work-list.component';
 import { DashComponent } from './pages/dash/dash.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
+import { ObserversModule } from '@angular/cdk/observers';
 
-// import { MatDatetimepickerModule,MatNativeDatetimeModule, MAT_DATETIME_FORMATS,DatetimeAdapter } from '@mat-datetimepicker/core';
-// import { MAT_MOMENT_DATETIME_FORMATS, MomentDatetimeAdapter } from '@mat-datetimepicker/moment';
-
-
-
-
-// import { DashModule } from './pages/dash/dash.module';
-
-
-
+import {NgxMatTimepickerModule} from 'ngx-mat-timepicker'; 
 
 @NgModule({
   declarations: [
@@ -86,7 +77,7 @@ import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
     NgxsModule.forRoot([CurrentState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     FormsModule,
-    CommonModule, 
+    CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -124,12 +115,10 @@ import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
     MatNativeDateModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    
-    MatNativeDatetimeModule
+    MatNativeDatetimeModule,
+    ObserversModule,
 
-
-    // MatDatetimepickerModule, 
-    
+    NgxMatTimepickerModule
   ],
   providers: [
     MatCommonModule,
@@ -141,8 +130,6 @@ import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
     // MatDatepickerModule,
     // MatNativeDateModule,
     // MatMomentDateModule,
-
-    
   ],
   bootstrap: [AppComponent],
 })
