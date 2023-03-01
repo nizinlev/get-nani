@@ -39,7 +39,7 @@ export class CreateAccountComponent implements OnInit {
 
   genders = ['male', 'female'];
   roles= ['nani', 'parent'];
-  allCities$: Observable<string[]>;
+  allCities$: Observable<citiesFormat[]>;
   filterCities$:Observable<string[]>|undefined;
   filter$:Observable<string>|undefined;
   filterCitiesParent$:Observable<string[]>|undefined;
@@ -65,7 +65,6 @@ export class CreateAccountComponent implements OnInit {
     this.naniFormGroup = this.fb.group({
       age: ['', [Validators.required]],
       residence: ['', [Validators.required]],
-      // need to call Api
       experienceYears: ['', [Validators.required]],
       about: [''],
     });
@@ -75,21 +74,32 @@ export class CreateAccountComponent implements OnInit {
       childResidence: ['', [Validators.required]],
       childGender: ['', [Validators.required]],
       });
+
       // autocomplete form
       this.allCities$=this.ds.getCities();
       this.filter$= this.placeNani?.valueChanges;
-      this.filterCities$=this.filter$?.pipe(
+      this.filterCities$ = this.filter$?.pipe(
         withLatestFrom(this.allCities$),
-        map(([strFil, cities]) => cities.filter(city => city.includes(strFil)))
+        map(([strFil, cities]) =>
+          cities
+            .filter((city) => city.hebrewName.includes(strFil))
+            .map((city) => city.hebrewName)
+        )
       );
       this.filterParent$= this.placePare?.valueChanges;
       this.filterCitiesParent$=this.filterParent$?.pipe(
         withLatestFrom(this.allCities$),
-        map(([strFil, cities]) => cities.filter(city => city.includes(strFil)))
-      );
+        map(([strFil, cities]) =>
+          cities
+            .filter((city) => city.hebrewName.includes(strFil))
+            .map((city) => city.hebrewName)
+        ));
     } 
     
     ngOnInit() {
+      this.allCities$.subscribe(x=>{
+        console.log(x)
+      })
   }
 
   back(){
@@ -123,4 +133,9 @@ export class CreateAccountComponent implements OnInit {
     }
     return null;
   }
+}
+
+export interface citiesFormat{
+  hebrewName: string,
+  englishName: string
 }

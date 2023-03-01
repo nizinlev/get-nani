@@ -55,8 +55,9 @@ import { DashComponent } from './pages/dash/dash.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { ObserversModule } from '@angular/cdk/observers';
-
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker'; 
+
+import { GoogleMapsModule } from '@angular/google-maps'
 
 @NgModule({
   declarations: [
@@ -117,8 +118,9 @@ import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';
     MatNativeDateModule,
     MatNativeDatetimeModule,
     ObserversModule,
+    NgxMatTimepickerModule,
 
-    NgxMatTimepickerModule
+    GoogleMapsModule
   ],
   providers: [
     MatCommonModule,

@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'signup' , component: CreateAccountComponent},
   {path: 'dash' , component: HeadbarComponent , canActivate: [LoginGuardGuard],
    children:[
-    {path: '' , redirectTo: 'add-offer', pathMatch: 'full',outlet: 'secondary'},
+    {path: '' , redirectTo: 'home', pathMatch: 'full',outlet: 'secondary'},
     {path: 'home' , component: DashComponent, outlet: 'secondary'},
     {path: 'list' , component: WorkListComponent, outlet: 'secondary', pathMatch: 'full'},
     {path: 'history' , component: HistoryComponent, outlet: 'secondary', pathMatch: 'full'},

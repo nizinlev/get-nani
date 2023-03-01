@@ -1,17 +1,21 @@
-<p>dash works!</p>
-  <mat-form-field>
-    <mat-label>Select a date</mat-label>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>select</mat-label>
-    <input matInput type="datetime-local" [formControl]="rex" placeholder="enter time">
-    <mat-icon matSuffix>schedule</mat-icon>
-  </mat-form-field>
-
-<p>
-  {{rex.value|json}}
-</p>
+<mat-card>
+  <mat-card-title>Map</mat-card-title>
+  <google-map class="map-container"
+              height="{{heightS}}px"
+              width="{{widthS}}px"
+              [center]="center"
+              [zoom]="zoom"
+              [options]="optionMap"
+              (mapClick)="moveMap($event)"
+              (mapMousemove)="move($event)">
+              <map-marker
+              *ngFor="let marker of markers"
+              [position]="marker.position"
+              [label]="marker.label"
+              [title]="marker.title"
+              [options]="marker.options"
+            >
+            </map-marker>
+  </google-map>
+</mat-card> 
+  
