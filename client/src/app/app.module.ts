@@ -57,7 +57,8 @@ import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { ObserversModule } from '@angular/cdk/observers';
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker'; 
 
-import { GoogleMapsModule } from '@angular/google-maps'
+import { GoogleMapsModule } from '@angular/google-maps';
+
 
 @NgModule({
   declarations: [
@@ -119,8 +120,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
     MatNativeDatetimeModule,
     ObserversModule,
     NgxMatTimepickerModule,
-
-    GoogleMapsModule
+    GoogleMapsModule,
   ],
   providers: [
     MatCommonModule,

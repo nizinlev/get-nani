@@ -69,8 +69,8 @@ export class AddOfferComponent implements OnInit {
   onSubmit() {
     if (this.offerForm.valid) {
       const [hours, minutes] = this.startTime?.value.split(':');
-    const [hoursFinish, minutesFinish] = this.startTime?.value.split(':');
-    const startDateTime=this.combineTimes(this.dateTime?.value,hours, minutes)
+    const [hoursFinish, minutesFinish] = this.finishTime?.value.split(':');
+    const startDateTime=this.combineTimes(this.dateTime?.value,hours, minutes);
     const endDateTime=this.combineTimes(this.dateTime?.value,hoursFinish, minutesFinish)
     
     this.currentUser$.pipe(first()).subscribe((user) => {
@@ -112,9 +112,10 @@ export class AddOfferComponent implements OnInit {
   }
 
   combineTimes(date:Date,hours:string,minutes:string){
-    date.setHours(Number(hours));
-    date.setMinutes(Number(minutes));
-    return date
+    let newDate = new Date(date.getTime());
+    newDate.setHours(Number(hours));
+    newDate.setMinutes(Number(minutes));
+    return newDate
   }
 
   minHoursStart(){

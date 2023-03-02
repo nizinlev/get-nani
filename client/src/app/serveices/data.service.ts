@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { User } from './../models/user.model';
 import { Person } from './../models/person.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -43,81 +44,44 @@ export class DataService {
       })
     );
   }
-  testfunc(){
-    return this.http.get('https://api.api-ninjas.com/v1/geocode', {
-      params: {
-        q: 'San Francisco, CA'
-      },
-      headers: {
-        'X-Api-Key': 'IvvFGqggAA7BZGdYlRqV4w==Dw28nRX7z6HI85e1'
-      }
-    });
-  }
-
-  private getLatLongByPlaces(addresses: string[]) {
-    return this.http.post('https://api.api-ninjas.com/v1/geocode', addresses, {
-      headers: {
-        'X-Api-Key': 'IvvFGqggAA7BZGdYlRqV4w==Dw28nRX7z6HI85e1',
-        'Content-Type': 'application/json',
-      },
-    }).pipe(
-      map((results: any) => {
-        const locations: any[] = [];
-        const uniqueLocations = new Set();
-  
-        // Loop over each result and extract the unique locations
-        results.forEach((result:any) => {
-          const key = `${result.latitude},${result.longitude}`;
-          if (!uniqueLocations.has(key)) {
-            uniqueLocations.add(key);
-            locations.push({
-              name: result.name,
-              lat: result.latitude,
-              long: result.longitude
-            });
-          }
-        });
-  
-        return locations;
-      })
-    );
+  getLatLongByPlace(placeName:string){
+    const KEY = '84d2945728b2449e8f10f2a08c9ed5d6'
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${placeName}&key=${KEY}&language=he&countrycode=il&limit=1`;
+    return this.http.get(url,{})
   }
 
   getAllOffersWithLatLong(id:string): Observable<Offer[]> {
     const offerList = this.getAllOffers(id);
     const citiesList = this.getCities();
-    
+      
     return combineLatest([offerList, citiesList]).pipe(
-      map(([offers, cities]) => {
+      switchMap(([offers, cities]) => {
         // Get a list of unique place names from the offer list
         let newOffers:any=offers
-        const places = Array.from(new Set(newOffers.map((offer:any) => offer.location)));
+        // filter only relevant offers
+        newOffers=newOffers.filter((offer:any)=>new Date(offer.time_start)>new Date())
+        const places: string[] = Array.from(new Set(newOffers.map((offer:any) => offer.location)));
   
-        // Map place names to English names using the cities list
-        const englishPlaces = places.map(place => {
-          const city = cities.find(city => city.hebrewName === place);
-          return city ? city.englishName : place;
-        });
+        // get list of places with lat and long 
+        let latLongs: { [key: string]: { lat: number, long: number } } = {};
+        let requests = places.map((place:any) => this.getLatLongByPlace(place).toPromise());
+        return forkJoin(requests).pipe(
+          map((responses: any[]) => {
+            responses.forEach((data: any, index: number) => {
+              const geometry = data.results[0].geometry;
+              latLongs[places[index]] = { lat: geometry.lat, long: geometry.lng };
+            });
   
-        // Get the latitude and longitude for each place using the getLatLongByPlaces function
-        return this.getLatLongByPlaces(englishPlaces).pipe(
-          map(locations => {
-            // Combine the latitude and longitude data with the offer data
-            let newOffers:any=offers
-            return newOffers.map((offer:any) => {
-              const place = cities.find(city => city.hebrewName === offer.location);
-              const englishPlace = place ? place.englishName : offer.location;
-              const location = locations.find(location => location.name === englishPlace);
+            return newOffers.map((offer:any)=>{
               return {
                 ...offer,
-                lat: location ? location.lat : null,
-                long: location ? location.long : null
-              };
+                lat: latLongs[offer.location]? latLongs[offer.location].lat: null,
+                long: latLongs[offer.location]? latLongs[offer.location].long: null,
+              }
             });
           })
-        );
+        )
       }),
-      switchMap(offersWithLatLong => offersWithLatLong),
       catchError((error) => {
         console.error('Error fetching data:', error);
         return of([]);

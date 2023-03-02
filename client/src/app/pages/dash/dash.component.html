@@ -1,21 +1,26 @@
 <mat-card>
   <mat-card-title>Map</mat-card-title>
-  <google-map class="map-container"
-              height="{{heightS}}px"
-              width="{{widthS}}px"
-              [center]="center"
-              [zoom]="zoom"
-              [options]="optionMap"
-              (mapClick)="moveMap($event)"
-              (mapMousemove)="move($event)">
-              <map-marker
-              *ngFor="let marker of markers"
-              [position]="marker.position"
-              [label]="marker.label"
-              [title]="marker.title"
-              [options]="marker.options"
-            >
-            </map-marker>
+  <google-map (mapClick)="click($event)" height="400px" width="100%" [zoom]="zoom" [center]="center" [options]="optionMap">
+    <ng-container *ngFor="let marker of markers">
+
+    <map-marker
+    #markerElem="mapMarker"
+    [position]="marker.position"
+    [label]="marker.label"
+    [title]="marker.title"
+    [options]="marker.options"
+    (mapClick)="openInfo(markerElem, marker.info)"
+  >
+  </map-marker>
+  <map-info-window>
+    <div class="info-window-content">
+      <h4>name: {{infoName}}</h4>
+      <p>Phone: {{infoPhone}}</p>
+      <p>Email: {{infoEmail}}</p>
+      <p>Start: {{infoStart}}</p>
+      <p>End:   {{infoEnd}}</p>
+    </div>
+  </map-info-window> 
+</ng-container >
   </google-map>
-</mat-card> 
-  
+</mat-card>
