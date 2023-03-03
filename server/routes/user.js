@@ -97,7 +97,7 @@ router.get('/all_parents', async (req, res) => {
 })
 router.get('/all_offers/', async (req, res) => {
   const id = req.query.id; 
-  const all_offers = await OfferList.find({ id: { $nin: [id] } }).sort({time_start:1});
+  const all_offers = await OfferList.find({ id: { $nin: [id] }, start_time: { $gt: new Date() }}).sort({time_start:1});
 
   const offerListWithUsers = [];
   for (const offer of all_offers) {

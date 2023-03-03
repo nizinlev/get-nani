@@ -7,6 +7,8 @@ import { Store } from '@ngxs/store';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogComponent } from 'src/app/dialogs/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,8 @@ export class LoginComponent implements OnInit {
     private store: Store,
     private fb: FormBuilder,
     private authServe: AuthServiceService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
   ) {
     this.loginForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -34,6 +37,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    let massage= 'you are in!!'
+    const dialogRef = this.dialog.open(SuccessDialogComponent, {
+      data: { massage }
+    });
+    dialogRef.afterClosed().subscribe(res=>{
+      console.log(res)
+    })
     this.__checkUserConnect();
   }
 
@@ -82,6 +92,7 @@ export class LoginComponent implements OnInit {
     this.authServe.login(dataForm.name, dataForm.pass)
       .then(res=>{
         if(res.success){
+
           this.router.navigate(['/dash'])
         }
         else{

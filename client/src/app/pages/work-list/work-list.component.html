@@ -1,11 +1,14 @@
-<div class="card-container">
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<div class="card-container" *ngIf="!isLoading">
     <mat-card *ngFor="let item of newOfferList ; index as i" matTooltip="{{convertObjTooltip(item.user)}}">
       <mat-card-header>
         <mat-card-title>{{ item.user.username }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Start time: {{ item.time_start | date }}</p>
-        <p>End time: {{ item.time_finish | date }}</p>
+        <p>Date: {{ item.time_start | date:'MMM d, y' }}</p>
+        <p>Start time: {{ item.time_start | date:'h:mm '}}</p>
+        <p>End time: {{ item.time_finish | date:'h:mm ' }}</p>
         <p>Location: {{ item.location }}</p>
         <p>Payment: {{ item.payment | currency }}</p>
       </mat-card-content>

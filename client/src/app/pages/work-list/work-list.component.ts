@@ -16,19 +16,24 @@ export class WorkListComponent implements OnInit {
   allOffers$: Observable<any> | undefined;
   currentUser$?: Observable<User>;
   newOfferList:any=[];
+  isLoading:boolean=false;
 
 
   constructor(private ds: DataService, private store:Store ,private _snackBar: MatSnackBar) {
     this.currentUser$ = this.store.select(state=>state.current.user);
+ 
 
   }
 
   ngOnInit() {
+    this.isLoading=true;
     this.currentUser$?.subscribe(x=>{
       this.allOffers$=this.ds.getAllOffers(String(x.id))
+      this.isLoading=false;
     })
     this.allOffers$?.subscribe(x=>{
       this.newOfferList=x;
+      this.isLoading=false;
       return x
     })
   }

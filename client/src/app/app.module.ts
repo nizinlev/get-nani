@@ -34,7 +34,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
@@ -56,8 +55,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { ObserversModule } from '@angular/cdk/observers';
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker'; 
-
 import { GoogleMapsModule } from '@angular/google-maps';
+import { SpinnerComponent } from './display/spinner/spinner.component';
+import { SuccessDialogComponent } from './dialogs/success-dialog/success-dialog.component';
+import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -72,7 +74,14 @@ import { GoogleMapsModule } from '@angular/google-maps';
     AddOfferComponent,
     WorkListComponent,
     DashComponent,
+    SpinnerComponent,
+    SuccessDialogComponent,
+    ErrorDialogComponent,
   ],
+  entryComponents:[
+    SuccessDialogComponent,
+    ErrorDialogComponent,
+],
   imports: [
     BrowserModule,
     AppRoutingModule,

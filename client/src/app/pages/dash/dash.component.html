@@ -1,4 +1,6 @@
-<mat-card>
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<mat-card *ngIf="!isLoading">
   <mat-card-title>Map</mat-card-title>
   <google-map (mapClick)="click($event)" height="400px" width="100%" [zoom]="zoom" [center]="center" [options]="optionMap">
     <ng-container *ngFor="let marker of markers">

@@ -9,6 +9,7 @@ import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
   styleUrls: ['./dash.component.scss'],
 })
 export class DashComponent implements OnInit {
+  isLoading: boolean = false;
   center: google.maps.LatLngLiteral = {
     lat: 32.440595,
     lng: 35.512499,
@@ -21,11 +22,11 @@ export class DashComponent implements OnInit {
   markers: any[] = [];
   zoom = 10;
   display: any;
-  infoName:string=''
-  infoPhone:string=''
-  infoEmail:string=''
-  infoStart:string=''
-  infoEnd:string=''
+  infoName: string = '';
+  infoPhone: string = '';
+  infoEmail: string = '';
+  infoStart: string = '';
+  infoEnd: string = '';
 
   offersWithLongLat$: Observable<any>;
   localStoreData: any;
@@ -42,6 +43,7 @@ export class DashComponent implements OnInit {
   infoContent = '';
 
   ngOnInit() {
+    this.isLoading = true;
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
         lat: position.coords.latitude,
@@ -59,34 +61,31 @@ export class DashComponent implements OnInit {
           this.addMarker(offer);
         }
       });
-      console.log(duplicatePlaces);
-      console.log(this.markers);
+      this.isLoading = false;
     });
   }
 
   addRandomMarker(offer: any) {
     this.markers.push({
       position: {
-        lat: offer.lat +((Math.random()-0.5)*2 /100),
-        lng: offer.long+ ((Math.random()-0.5)*2 /100),
+        lat: offer.lat + ((Math.random() - 0.5) * 2) / 100,
+        lng: offer.long + ((Math.random() - 0.5) * 2) / 100,
       },
       label: {
         color: 'blue',
-        text:  offer.user.username,
+        text: offer.user.username,
       },
       title: offer.user.username,
       info: {
-        name:offer.user.username,
+        name: offer.user.username,
         phone: offer.user.phone_num,
         email: offer.user.email,
         start: this.formatDate(offer.time_start),
-        end:  this.formatDate(offer.time_finish)
-    
+        end: this.formatDate(offer.time_finish),
       },
       options: { animation: google.maps.Animation.DROP },
     });
   }
-
 
   addMarker(offer: any) {
     this.markers.push({
@@ -96,16 +95,15 @@ export class DashComponent implements OnInit {
       },
       label: {
         color: 'white',
-        text:  offer.user.username,
+        text: offer.user.username,
       },
       title: offer.user.username,
       info: {
-        name:offer.user.username,
+        name: offer.user.username,
         phone: offer.user.phone_num,
         email: offer.user.email,
         start: this.formatDate(offer.time_start),
-        end:  this.formatDate(offer.time_finish)
-    
+        end: this.formatDate(offer.time_finish),
       },
       options: { animation: google.maps.Animation.DROP },
     });
@@ -120,11 +118,11 @@ export class DashComponent implements OnInit {
   }
 
   openInfo(marker: any, content: any) {
-    this.infoName= content.name;
-    this.infoPhone = content.phone
-    this.infoEmail = content.email
-    this.infoStart = content.start
-    this.infoEnd = content.end
+    this.infoName = content.name;
+    this.infoPhone = content.phone;
+    this.infoEmail = content.email;
+    this.infoStart = content.start;
+    this.infoEnd = content.end;
     this.infoWindow?.open(marker);
   }
   formatDate(date: string) {

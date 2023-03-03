@@ -89,38 +89,6 @@ export class DataService {
     );
   }
   
-  
-  // getAllOffersWithLatLong() {
-  //   return forkJoin([
-  //     this.getAllOffers('12'),
-  //     this.getCities()
-  //   ]).pipe(
-  //     map(([offers, cities]) => {
-  //       const citiesMap = new Map<string, City>();
-  //       cities.forEach(city => citiesMap.set(city.hebrewName, city));
-  //       const offersWithLatLong = offers.map((offer: any) => {
-  //         const city = citiesMap.get(offer.location);
-  //         if (city) {
-  //           return {
-  //             id: offer.id,
-  //             time_start: new Date(offer.time_start),
-  //             time_finish: new Date(offer.time_finish),
-  //             location: offer.location,
-  //             payment: offer.payment,
-  //             lat: city.lat,
-  //             long: city.long
-  //           }
-  //         }
-  //       }).filter((offer) => !!offer);
-  //       return offersWithLatLong;
-  //     }),
-  //     catchError((error) => {
-  //       console.error('Error fetching data:', error);
-  //       return of([]);
-  //     })
-  //   );
-  // }
-
   getParens() {
     return this.http.get(this.BASE_URL + this.REST_API_ALL_PARENTS, {});
   }
