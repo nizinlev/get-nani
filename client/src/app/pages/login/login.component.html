@@ -2,7 +2,7 @@
   <img src="../../../assets/img/get nani_icon_130_130.png">
 </div>
 
-<mat-card>
+<mat-card class="center-card">
   <mat-card-header >
     <mat-card-title>login</mat-card-title>
   </mat-card-header>
@@ -27,7 +27,7 @@
       <mat-error *ngIf="showErr">
         {{errMsg}}
       </mat-error>
-      <button type="submit" mat-raised-button color="primary">Login</button>
+      <button type="submit" mat-raised-button color="primary">{{isChecked? 'Loading' : 'Login'}}</button>
     </form>
 
     <a href="signup">Register now...</a>

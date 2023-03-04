@@ -7,5 +7,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./error-dialog.component.scss']
 })
 export class ErrorDialogComponent {
+  
+  constructor(private dialogRef: MatDialogRef<ErrorDialogComponent>, @Inject(MAT_DIALOG_DATA) public data:any) { }
+
+  ngOnInit() {
+    this.dialogRef.updateSize('max-content','max-content')
+  }
+
+  onClose() {
+    this.dialogRef.close();
+  }
 
 }

@@ -4,20 +4,6 @@
   </mat-card-header>
   <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
     <mat-card-content>
-      <!-- <mat-form-field>
-        <input matInput [matDatepicker]="startTimePicker" formControlName="startTime" placeholder="Start Time">
-        <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
-        <mat-datepicker #startTimePicker></mat-datepicker>
-        <mat-error *ngIf="startTime?.invalid && startTime?.touched">Start time is required.</mat-error>
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput [matDatepicker]="finishTimePicker" formControlName="finishTime" placeholder="Finish Time">
-        <mat-datepicker-toggle matSuffix [for]="finishTimePicker"></mat-datepicker-toggle>
-        <mat-datepicker #finishTimePicker></mat-datepicker>
-        <mat-error *ngIf="finishTime?.errors?.['required']">Finish time is required.</mat-error>
-      </mat-form-field> -->
-
       <mat-form-field >
         <input matInput [matDatepicker]="picker1" [min]="minDate" formControlName="dateTime" placeholder="Start Date">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>

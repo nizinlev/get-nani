@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/serveices/data.service';
 import { Router } from '@angular/router';
 import { combineLatest, defaultIfEmpty, filter, map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
+import { SuccessDialogComponent } from 'src/app/dialogs/success-dialog/success-dialog.component';
+import { ErrorDialogComponent } from 'src/app/dialogs/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-create-account',
@@ -18,6 +20,7 @@ export class CreateAccountComponent implements OnInit {
   secondFormGroup: FormGroup;
   naniFormGroup: FormGroup;
   parentFormGroup: FormGroup;
+  dialog: any;
 
   get firstName() { return this.firstFormGroup.get('firstName');  }
   get lastName() {  return this.firstFormGroup.get('lastName');  }
@@ -110,9 +113,19 @@ export class CreateAccountComponent implements OnInit {
     [userForm,roleForm] = this.addIdToForm(personForm.id, userForm, roleForm);
     this.authServe.addUser(personForm,userForm,roleForm).subscribe(res=>{
       if((res as {[key: string]: any})['success']) {
-        this.router.navigate(['/login']);
+        const dialogRef = this.dialog.open(SuccessDialogComponent, {
+          data: { massage: `User- ${userForm.username}, is created` },
+        });
+        dialogRef.afterClosed().subscribe((res:any) => {
+          this.router.navigate(['/login']);
+        });
      } else {
-        alert('Wrong username password');
+      const dialogError = this.dialog.open(ErrorDialogComponent, {
+        data: { massage: 'Username or password exist - try other username' },
+      });
+      dialogError.afterClosed().subscribe((res:any) => {
+        console.log(res);
+      });
      }
     })
   }

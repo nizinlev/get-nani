@@ -53,7 +53,7 @@
                 <ng-template matStepLabel>User Details</ng-template>
                 <mat-form-field appearance="fill">
                     <mat-label>Username</mat-label>
-                    <input matInput placeholder="username" formControlName="username">
+                    <input matInput placeholder="Username" formControlName="username">
                     <mat-error *ngIf="username?.errors?.['required']"> username is required.</mat-error>
                     <mat-error *ngIf="username?.errors?.['minlength']"> must be at least 3 characters long.</mat-error>
                 </mat-form-field>
@@ -68,13 +68,13 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Password</mat-label>
-                    <input matInput placeholder="password" formControlName="password">
+                    <input matInput placeholder="Password" formControlName="password">
                     <mat-error *ngIf="password?.errors?.['required']"> password is required.</mat-error>
                     <mat-error *ngIf="password?.errors?.['minlength']"> must be at least 6 characters long.</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Confirm Password</mat-label>
-                    <input matInput placeholder="password" formControlName="confirmPassword">
+                    <input matInput placeholder="Confirm password" formControlName="confirmPassword">
                     <mat-error *ngIf="confirmPassword?.errors?.['required']"> required.</mat-error>
                     <mat-error *ngIf="confirmPassword?.errors?.['minlength']"> must be at least 6 characters
                         long.</mat-error>
@@ -82,14 +82,14 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Phone Number</mat-label>
-                    <input matInput placeholder="phone number" formControlName="phoneNumber">
+                    <input matInput placeholder="Phone number" formControlName="phoneNumber">
                     <mat-error *ngIf="phoneNumber?.errors?.['required']"> required.</mat-error>
                     <mat-error *ngIf="phoneNumber?.errors?.['minlength'] || phoneNumber?.errors?.['pattern']"> Incorrect
                         phone number.</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Email</mat-label>
-                    <input matInput placeholder="email" formControlName="email">
+                    <input matInput placeholder="Email" formControlName="email">
                     <mat-error *ngIf="email?.errors?.['required']"> email is required.</mat-error>
                     <mat-error *ngIf="email?.errors?.['email']"> invalid email.</mat-error>
                 </mat-form-field>
@@ -103,12 +103,12 @@
                 <ng-template matStepLabel>Role Details</ng-template>
                 <mat-form-field appearance="fill">
                     <mat-label>Age</mat-label>
-                    <input type="number" matInput placeholder="username" formControlName="age">
+                    <input type="number" matInput placeholder="Username" formControlName="age">
                     <mat-error *ngIf="age?.errors?.['required']"> enter age.</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>How many time your experience</mat-label>
-                    <input type="number" matInput placeholder="experience..." formControlName="experienceYears">
+                    <input type="number" matInput placeholder="Experience..." formControlName="experienceYears">
                     <mat-error *ngIf="expNani?.errors?.['required']"> experience years is required.</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
@@ -136,13 +136,13 @@
                 <ng-template matStepLabel>Role Details</ng-template>
                 <mat-form-field appearance="fill">
                     <mat-label>Child Name</mat-label>
-                    <input matInput placeholder="child name..." formControlName="childName">
+                    <input matInput placeholder="Child name..." formControlName="childName">
                     <mat-error *ngIf="childName?.errors?.['required']"> name is required.</mat-error>
                     <mat-error *ngIf="childName?.errors?.['minlength']"> must be at least 6 characters long.</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Child Age</mat-label>
-                    <input type="number" matInput placeholder="childAge" formControlName="childAge">
+                    <input type="number" matInput placeholder="ChildAge" formControlName="childAge">
                     <mat-error *ngIf="childAge?.errors?.['required']"> enter age.</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">

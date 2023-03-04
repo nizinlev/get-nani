@@ -1,19 +1,10 @@
-  <h2 mat-dialog-title class="title">Success</h2>
+<h2 mat-dialog-title class="title">Success</h2>
 <mat-dialog-content>
   <div class="message">{{data.massage}}</div>
 </mat-dialog-content>
 <mat-dialog-actions class="actions">
-  <button mat-button mat-dialog-close [mat-dialog-close]="true" class="primary">OK</button>
+  <button mat-raised-button color="primary" mat-dialog-close cdkFocusInitial [mat-dialog-close]="true"
+    class="primary">Take me in</button>
   <!-- <button mat-button mat-dialog-close [mat-dialog-close]="false" class="secondary">Error</button> -->
 </mat-dialog-actions>
 <mat-progress-bar [value]="progressValue"></mat-progress-bar>
-
-
-
-<!-- <h2 [mat-dialog-title] > success </h2>
-<mat-dialog-content>
-    <h1>hloo succes</h1>
-</mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button [mat-dialog-close] >OK</button>
-</mat-dialog-actions> -->

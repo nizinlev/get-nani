@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <mat-icon  id="btn-menu" (click)="toggleSidebar()">menu</mat-icon>
+  <mat-icon id="btn-menu" (click)="toggleSidebar()">menu</mat-icon>
   <div class="logo">
     <img src="../../../assets/img/get nani_icon_130_130.png" alt="Logo" />
   </div>
@@ -12,22 +12,27 @@
       <mat-icon>star</mat-icon>
       <span class="stars">{{rateLocal}}</span>
     </div>
-    <button (click)="logout()" mat-raised-button >Out
+    <button (click)="logout()" mat-raised-button>Out
       <mat-icon>logout</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav [(opened)]="isActive">
-      <mat-list>
-          <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['home']}}]" matTooltip="home"><mat-icon>home</mat-icon></button></mat-list-item>
-          <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['history']}}]" matTooltip="history"><mat-icon>access_time</mat-icon></button></mat-list-item>
-          <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['add-rating']}}]" matTooltip="add-rating"><mat-icon>add</mat-icon></button></mat-list-item>
-          <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['list']}}]" matTooltip="list"><mat-icon>list</mat-icon></button></mat-list-item>
-          <mat-list-item><button [routerLink]="[{ outlets: { secondary: ['add-offer']}}]" matTooltip="add-offer"><mat-icon>add_comment</mat-icon></button></mat-list-item>
-      </mat-list>
+    <mat-list>
+      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['home']}}]"
+          matTooltipPosition="right" matTooltip="home"><mat-icon>home</mat-icon></button></mat-list-item>
+      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['history']}}]"
+          matTooltipPosition="right" matTooltip="history"><mat-icon>access_time</mat-icon></button></mat-list-item>
+      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['add-rating']}}]"
+          matTooltipPosition="right" matTooltip="add-rating"><mat-icon>add</mat-icon></button></mat-list-item>
+      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['list']}}]"
+          matTooltipPosition="right" matTooltip="list"><mat-icon>list</mat-icon></button></mat-list-item>
+      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['add-offer']}}]"
+          matTooltipPosition="right" matTooltip="add-offer"><mat-icon>add_comment</mat-icon></button></mat-list-item>
+    </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet name="secondary"></router-outlet>
-    </mat-sidenav-content>
+  </mat-sidenav-content>
 </mat-sidenav-container>

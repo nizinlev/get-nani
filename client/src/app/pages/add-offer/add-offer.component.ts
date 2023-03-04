@@ -5,6 +5,8 @@ import { Store } from '@ngxs/store';
 import { first, Observable } from 'rxjs';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ErrorDialogComponent } from 'src/app/dialogs/error-dialog/error-dialog.component';
+import { SuccessDialogComponent } from 'src/app/dialogs/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-add-offer',
@@ -21,7 +23,8 @@ export class AddOfferComponent implements OnInit {
   userLocation: string = '';
   showError: boolean = false;
   myFilter: any;
-  minDate=new Date()
+  minDate = new Date();
+  dialog: any;
 
   get dateTime() {
     return this.offerForm.get('dateTime');
@@ -69,29 +72,47 @@ export class AddOfferComponent implements OnInit {
   onSubmit() {
     if (this.offerForm.valid) {
       const [hours, minutes] = this.startTime?.value.split(':');
-    const [hoursFinish, minutesFinish] = this.finishTime?.value.split(':');
-    const startDateTime=this.combineTimes(this.dateTime?.value,hours, minutes);
-    const endDateTime=this.combineTimes(this.dateTime?.value,hoursFinish, minutesFinish)
-    
-    this.currentUser$.pipe(first()).subscribe((user) => {
-      let data = {
-        time_start: startDateTime,
-        time_finish: endDateTime,
-        location: this.userLocation,
-        payment: this.payment?.value,
+      const [hoursFinish, minutesFinish] = this.finishTime?.value.split(':');
+      const startDateTime = this.combineTimes(
+        this.dateTime?.value,
+        hours,
+        minutes
+      );
+      const endDateTime = this.combineTimes(
+        this.dateTime?.value,
+        hoursFinish,
+        minutesFinish
+      );
+
+      this.currentUser$.pipe(first()).subscribe((user) => {
+        let data = {
+          time_start: startDateTime,
+          time_finish: endDateTime,
+          location: this.userLocation,
+          payment: this.payment?.value,
           id: user.id,
         };
         this.ds.addOffer(data).subscribe((res: any) => {
           if (!res['success']) {
-            alert('add offer failed');
+            const dialogError = this.dialog.open(ErrorDialogComponent, {
+              data: { massage: 'Add offer failed' },
+            });
+            dialogError.afterClosed().subscribe();
           } else {
-            alert('success add offer');
-            this.router.navigate([[{ outlets: { secondary: 'home' } }]]);
+            const dialogRef = this.dialog.open(SuccessDialogComponent, {
+              data: { massage: 'Success add offer' },
+            });
+            dialogRef.afterClosed().subscribe((res: any) => {
+              this.router.navigate([[{ outlets: { secondary: 'home' } }]]);
+            });
           }
         });
       });
     } else {
-      alert('invalid Form - try again');
+      const dialogError = this.dialog.open(ErrorDialogComponent, {
+        data: { massage: 'Invalid Form - try again' },
+      });
+      dialogError.afterClosed().subscribe();
     }
   }
 
@@ -109,29 +130,29 @@ export class AddOfferComponent implements OnInit {
     }
     this.showError = false;
     return null;
-  }
+  };
 
-  combineTimes(date:Date,hours:string,minutes:string){
+  combineTimes(date: Date, hours: string, minutes: string) {
     let newDate = new Date(date.getTime());
     newDate.setHours(Number(hours));
     newDate.setMinutes(Number(minutes));
-    return newDate
+    return newDate;
   }
 
-  minHoursStart(){
-    if(this.dateTime?.value){
-    let isToday= (this.dateTime?.value.getDate()==new Date().getDate())? true:false;
-    if(isToday){
-      let x = new Date().setHours(new Date().getHours()+1)
-      let y = new Date().getMinutes()
-      return String(new Date(x).getHours())+':'+String(y)
-    }
-    else{
-      let x= '00:00'
-      return x
-    }}
-    else{
-      return '00:00'
+  minHoursStart() {
+    if (this.dateTime?.value) {
+      let isToday =
+        this.dateTime?.value.getDate() == new Date().getDate() ? true : false;
+      if (isToday) {
+        let x = new Date().setHours(new Date().getHours() + 1);
+        let y = new Date().getMinutes();
+        return String(new Date(x).getHours()) + ':' + String(y);
+      } else {
+        let x = '00:00';
+        return x;
+      }
+    } else {
+      return '00:00';
     }
   }
 }
