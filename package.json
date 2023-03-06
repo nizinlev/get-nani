@@ -12,5 +12,23 @@
   },
   "devDependencies": {
     "@ngxs/devtools-plugin": "^3.7.6"
-  }
+  },
+  "name": "get-nani",
+  "description": "app for finding a nanny",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd server && node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nizinlev/get-nani.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nizinlev/get-nani/issues"
+  },
+  "homepage": "https://github.com/nizinlev/get-nani#readme"
 }

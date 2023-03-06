@@ -10,8 +10,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const host = process.env.HOST || config.host;
-const port = process.env.PORT || config.port;
+const HOST = process.env.HOST || config.host;
+const PORT = process.env.PORT || config.port;
 
 app.use(bodyParser.json());
 app.use(cors({
@@ -31,8 +31,8 @@ app.use('/user', userFunc);
 
 
 
-app.listen(config.port, config.host, () => {
-    console.log(`Server started on host ${host} and port ${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running ${PORT}`);
 });
 
 
