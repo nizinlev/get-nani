@@ -115,7 +115,7 @@ export class DataService {
       rated_id: ratingForm.employerName,
       sum_rating: ratingForm.rating,
     };
-    return this.http.post('http://localhost:5000/user/add_rating', { data });
+    return this.http.post('https://get-nani.herokuapp.com/user/add_rating', { data });
   }
 
   addOffer(data: OfferForm) {
