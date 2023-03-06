@@ -1,28 +1,47 @@
 <app-spinner *ngIf="isLoading"></app-spinner>
 
-<mat-card *ngIf="!isLoading">
-  <mat-card-title>Map</mat-card-title>
-  <google-map (mapClick)="click($event)" height="400px" width="100%" [zoom]="zoom" [center]="center" [options]="optionMap">
-    <ng-container *ngFor="let marker of markers">
+<div *ngIf="!isLoading" class="offer-list-div">
+  <h2>offer-list</h2>
+  <div class="card-container">
+    <mat-card class="card-offer-list" *ngFor="let offer of newOfferList.slice(0,3) ; index as i">
+      <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>{{ offer.user.username }} - {{ offer.location }} </mat-card-title>
+        <mat-card-subtitle>{{ offer.user.phone_num}} - {{ offer.user.email }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="content-list">
+        <p>Date: {{ offer.time_start | date:'MMM d, y' }}</p>
+        <p>Time : {{ offer.time_start | date:'h:mm '}} - {{ offer.time_finish | date:'h:mm ' }}</p>
+        <p>Price: {{ offer.payment | currency }}</p>
+      </mat-card-content>
+      <mat-card-actions class="action-offers">
+        <button mat-button color="primary" (click)="acceptOffer(offer,i)">Accept</button>
+        <button mat-button color="warn" (click)="deleteOffer(offer, i)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
 
-    <map-marker
-    #markerElem="mapMarker"
-    [position]="marker.position"
-    [label]="marker.label"
-    [title]="marker.title"
-    [options]="marker.options"
-    (mapClick)="openInfo(markerElem, marker.info)"
-  >
-  </map-marker>
-  <map-info-window>
-    <div class="info-window-content">
-      <h4>name: {{infoName}}</h4>
-      <p>Phone: {{infoPhone}}</p>
-      <p>Email: {{infoEmail}}</p>
-      <p>Start: {{infoStart}}</p>
-      <p>End:   {{infoEnd}}</p>
-    </div>
-  </map-info-window> 
-</ng-container >
-  </google-map>
-</mat-card>
+<div class="offer-list-div" id="last-div"  *ngIf="!isLoading">
+  <h2>map</h2>
+  <mat-card class="map-card">
+    <google-map (mapClick)="click($event)" height="400px" width="100%" [zoom]="zoom" [center]="center"
+      [options]="optionMap">
+      <ng-container *ngFor="let marker of markers">
+
+        <map-marker #markerElem="mapMarker" [position]="marker.position" [label]="marker.label" [title]="marker.title"
+          [options]="marker.options" (mapClick)="openInfo(markerElem, marker.info)">
+        </map-marker>
+        <map-info-window>
+          <div class="info-window-content">
+            <h4>name: {{infoName}}</h4>
+            <p>Phone: {{infoPhone}}</p>
+            <p>Email: {{infoEmail}}</p>
+            <p>Start: {{infoStart}}</p>
+            <p>End: {{infoEnd}}</p>
+          </div>
+        </map-info-window>
+      </ng-container>
+    </google-map>
+  </mat-card>
+</div>

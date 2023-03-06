@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { DataService } from 'src/app/serveices/data.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dash',
@@ -27,28 +28,38 @@ export class DashComponent implements OnInit {
   infoEmail: string = '';
   infoStart: string = '';
   infoEnd: string = '';
+  infoContent = '';
 
   offersWithLongLat$: Observable<any>;
+  allOffers$: Observable<any> | undefined;
+  newOfferList:any=[];
   localStoreData: any;
 
-  constructor(private ds: DataService) {
+
+  constructor(private ds: DataService,
+    private _snackBar: MatSnackBar) {
     this.localStoreData = localStorage.getItem('user');
     let id = JSON.parse(this.localStoreData).id;
     this.offersWithLongLat$ = this.ds.getAllOffersWithLatLong(id);
+    this.allOffers$=this.ds.getAllOffers(String(id))
   }
+
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap | undefined;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow: | MapInfoWindow | undefined;
-  infoContent = '';
 
   ngOnInit() {
     this.isLoading = true;
+    this.allOffers$?.subscribe(x=>{
+      this.newOfferList=x;
+      console.log(x)
+      return this.newOfferList;
+    })
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
     });
-    console.log(this.markers);
     this.offersWithLongLat$.subscribe((offers) => {
       let duplicatePlaces: string[] = [];
       offers.map((offer: any) => {
@@ -134,6 +145,17 @@ export class DashComponent implements OnInit {
       year: '2-digit',
     });
     return `${timeString}, ${dateString}`;
+  }
+
+  acceptOffer(offer: any,i:any) {
+    this._snackBar.open(`send message to ${offer.user.username} (${offer.user.phone_num})`, 'Dismiss',{
+      duration: 3*1000
+    });
+  }
+
+  deleteOffer(offer: any,i:any):void {
+    console.log(offer)
+    this.newOfferList.splice(i,1)
   }
   click(event: google.maps.MapMouseEvent) {
     // console.log(event);

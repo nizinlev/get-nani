@@ -18,6 +18,7 @@ export class HeadbarComponent implements OnInit {
   rateLocal: number | undefined;
   rateString: string = '';
   isActive: boolean = true;
+  showText = window.innerWidth >= 400;
 
   constructor(
     private router: Router,
@@ -37,7 +38,9 @@ export class HeadbarComponent implements OnInit {
       this.rateLocal=Number(this.showRate(x.type.rating)) 
       this.rateString = this.showRate(x.type.rating);
     });
-    
+    window.addEventListener('resize', () => {
+      this.showText = window.innerWidth >= 400;
+    });
     this.__checkUserConnect();
   }
   

@@ -13,8 +13,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./work-list.component.scss']
 })
 export class WorkListComponent implements OnInit {
-  allOffers$: Observable<any> | undefined;
   currentUser$?: Observable<User>;
+  allOffers$: Observable<any> | undefined;
   newOfferList:any=[];
   isLoading:boolean=false;
 

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar >
   <mat-icon id="btn-menu" (click)="toggleSidebar()">menu</mat-icon>
   <div class="logo">
     <img src="../../../assets/img/get nani_icon_130_130.png" alt="Logo" />
@@ -15,7 +15,8 @@
         </ng-template></ngb-rating>
       <span class="stars">{{rateString}}</span>
     </div>
-    <button class="out-btn" (click)="logout()" mat-raised-button>Out
+    <button class="out-btn" (click)="logout()" [ngClass]="{'mat-button': !showText , 'mat-raised-button': showText}" mat-button>
+       <span *ngIf="showText">Out</span>
       <mat-icon>logout</mat-icon>
     </button>
   </div>

@@ -1,18 +1,31 @@
-.card-container{
+.card-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     // justify-content: space-between;
 }
-mat-card{
+
+mat-card {
     width: 30%;
     height: max-content;
     margin: auto;
     margin-top: 2em;
     text-align: center;
 }
+
 mat-card-header {
     display: flex;
     flex-direction: row;
     justify-content: center;
-  }
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (max-width: 450px) {
+    mat-card {
+        width: 90%;
+    }
+}

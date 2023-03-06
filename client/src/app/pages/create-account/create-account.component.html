@@ -170,19 +170,19 @@
                 <button mat-button matStepperNext>Next</button>
             </div>
         </mat-step>
-        <mat-step>
+        <mat-step class="last">
             <ng-template matStepLabel>Confirm Credentials</ng-template>
-            <strong>Almost done!!</strong><br>
-            <strong>New username:</strong> {{username?.value}}<br>
+            <h3>Almost done!!</h3><br>
+            <strong>Username:</strong> {{username?.value}}<br>
             <strong>Phone:</strong> {{phoneNumber?.value}}<br>
             <strong>Email:</strong> {{email?.value}}<br>
             <strong>Password:</strong> {{password?.value}}
 
             <div>
-                <button mat-button
+                <button mat-raised-button id="submit"
                     (click)="onSubmit(firstFormGroup.value,secondFormGroup.value,role?.value !== 'parent'? naniFormGroup.value : parentFormGroup.value)"
-                    matStepperPrevious>Confirm</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
+                    >Confirm</button>
+                <button mat-raised-button (click)="stepper.reset()">Reset</button>
             </div>
         </mat-step>
     </mat-vertical-stepper>

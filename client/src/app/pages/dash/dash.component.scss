@@ -3,7 +3,7 @@
   margin-bottom: 1rem;
 }
 
-mat-card {
+.map-card {
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -24,4 +24,43 @@ mat-card {
   flex: 1;
   width: 100%;
   margin: -3px;
+}
+
+.offer-list-div{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  padding: .5em .5em;
+  margin-top: 1em;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+#last-div{
+  margin-bottom: 3em;
+}
+
+.card-offer-list{
+ margin: .2em auto;
+}
+
+.content-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.action-offers{
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 540px) {
+  .content-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
 }

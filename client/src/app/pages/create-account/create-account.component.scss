@@ -1,5 +1,6 @@
 mat-card {
     width: 60%;
+    min-width: 25rem;
     height: inherit;
     margin: auto;
     margin-top: 2em;
@@ -7,20 +8,21 @@ mat-card {
     flex-direction: column;
     align-items: flex-start
 }
-#out-btn{
+
+#out-btn {
     background-color: #f602aa;
-    color:white;
+    color: white;
     margin: .5em .5em;
     margin-left: auto;
-  }
+}
 
-mat-card > :first-child {
+mat-card> :first-child {
     display: flex;
     flex-direction: row;
 }
 
-mat-card > *:not(:first-child) {
-    
+mat-card>*:not(:first-child) {
+
     display: block;
     margin: auto;
 }
@@ -40,6 +42,9 @@ mat-vertical-stepper {
 }
 
 @media (max-width:420px) {
+    mat-card {
+        width: 100%;
+    }
     mat-vertical-stepper {
         display: block;
         width: 100%;
@@ -48,10 +53,7 @@ mat-vertical-stepper {
     }
 }
 
-button[type="submit"] {
-    display: block;
-    margin-top: 1em;
-}
+
 
 .img {
     display: flex;
@@ -62,3 +64,35 @@ button[type="submit"] {
 img {
     border-radius: 11em;
 }
+
+.last {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+}
+
+h3 {
+    margin-top: 1em;
+    text-align: center;
+}
+
+strong {
+    text-align: left;
+    display: inline-block;
+    width: 100px;
+}
+
+div {
+    margin-top: 1em;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#submit {
+    display: block;
+    color: #673ab7;
+    margin-right: 1em;
+}
+
