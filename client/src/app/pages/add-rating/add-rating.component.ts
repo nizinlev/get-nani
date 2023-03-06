@@ -15,6 +15,7 @@ import {
 import { User } from 'src/app/models/user.model';
 import { ErrorDialogComponent } from 'src/app/dialogs/error-dialog/error-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogs/success-dialog/success-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-rating',
@@ -29,7 +30,7 @@ export class AddRatingComponent implements OnInit {
   myRating = 5;
   toggleType: any;
   filterTypes: any;
-  dialog: any;
+
 
   get description() {
     return this.rateForm.get('description');
@@ -45,7 +46,9 @@ export class AddRatingComponent implements OnInit {
     private fb: FormBuilder,
     private ds: DataService,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
+
   ) {
     this.rateForm = this.fb.group({
       employerName: ['', Validators.required],

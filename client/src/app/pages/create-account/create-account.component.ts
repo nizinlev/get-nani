@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { combineLatest, defaultIfEmpty, filter, map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
 import { SuccessDialogComponent } from 'src/app/dialogs/success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from 'src/app/dialogs/error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-account',
@@ -20,7 +21,6 @@ export class CreateAccountComponent implements OnInit {
   secondFormGroup: FormGroup;
   naniFormGroup: FormGroup;
   parentFormGroup: FormGroup;
-  dialog: any;
 
   get firstName() { return this.firstFormGroup.get('firstName');  }
   get lastName() {  return this.firstFormGroup.get('lastName');  }
@@ -48,7 +48,7 @@ export class CreateAccountComponent implements OnInit {
   filterCitiesParent$:Observable<string[]>|undefined;
   filterParent$:Observable<string>|undefined;
 
-  constructor(private fb: FormBuilder, private ds:DataService,  private authServe: AuthServiceService, private router:Router , private navServe:NavigationServiceService) {
+  constructor(    private dialog: MatDialog, private fb: FormBuilder, private ds:DataService,  private authServe: AuthServiceService, private router:Router , private navServe:NavigationServiceService) {
     
     this.firstFormGroup = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],

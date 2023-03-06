@@ -9,30 +9,32 @@
   <span class="example-spacer"></span>
   <div class="actions">
     <div class="rate">
-      <mat-icon>star</mat-icon>
-      <span class="stars">{{rateLocal}}</span>
+      <ngb-rating [max]="rateLocal || 1">
+        <ng-template #starTemplate let-fill="fill">
+          <span class="star">&#9733;</span>
+        </ng-template></ngb-rating>
+      <span class="stars">{{rateString}}</span>
     </div>
-    <button (click)="logout()" mat-raised-button>Out
+    <button class="out-btn" (click)="logout()" mat-raised-button>Out
       <mat-icon>logout</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav [(opened)]="isActive">
-    <mat-list>
-      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['home']}}]"
-          matTooltipPosition="right" matTooltip="home"><mat-icon>home</mat-icon></button></mat-list-item>
-      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['history']}}]"
-          matTooltipPosition="right" matTooltip="history"><mat-icon>access_time</mat-icon></button></mat-list-item>
-      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['add-rating']}}]"
-          matTooltipPosition="right" matTooltip="add-rating"><mat-icon>add</mat-icon></button></mat-list-item>
-      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['list']}}]"
-          matTooltipPosition="right" matTooltip="list"><mat-icon>list</mat-icon></button></mat-list-item>
-      <mat-list-item><button (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['add-offer']}}]"
-          matTooltipPosition="right" matTooltip="add-offer"><mat-icon>add_comment</mat-icon></button></mat-list-item>
-    </mat-list>
+    <mat-nav-list>
+      <mat-list-item (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['home']}}]"  matTooltipPosition="right" matTooltip="home"><mat-icon class="nav-icon">home</mat-icon></mat-list-item>
+      <mat-list-item (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['list']}}]" matTooltipPosition="right" matTooltip="list"><mat-icon class="nav-icon">list</mat-icon></mat-list-item>
+      <mat-list-item (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['history']}}]" matTooltipPosition="right" matTooltip="history"><mat-icon class="nav-icon">access_time</mat-icon></mat-list-item>
+      <mat-list-item (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['add-offer']}}]" matTooltipPosition="right" matTooltip="add-offer"><mat-icon class="nav-icon">add_comment</mat-icon></mat-list-item>     
+      <mat-list-item (click)="toggleSidebar()" [routerLink]="[{ outlets: { secondary: ['add-rating']}}]" matTooltipPosition="right" matTooltip="add-rating"><mat-icon class="nav-icon">add</mat-icon></mat-list-item>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet name="secondary"></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+
+

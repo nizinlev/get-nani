@@ -7,6 +7,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ErrorDialogComponent } from 'src/app/dialogs/error-dialog/error-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogs/success-dialog/success-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-offer',
@@ -24,7 +25,6 @@ export class AddOfferComponent implements OnInit {
   showError: boolean = false;
   myFilter: any;
   minDate = new Date();
-  dialog: any;
 
   get dateTime() {
     return this.offerForm.get('dateTime');
@@ -43,7 +43,8 @@ export class AddOfferComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store,
     private ds: DataService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.offerForm = this.fb.group(
       {

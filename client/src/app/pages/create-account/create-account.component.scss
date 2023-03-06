@@ -7,12 +7,16 @@ mat-card {
     flex-direction: column;
     align-items: flex-start
 }
-
+#out-btn{
+    background-color: #f602aa;
+    color:white;
+    margin: .5em .5em;
+    margin-left: auto;
+  }
 
 mat-card > :first-child {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
 }
 
 mat-card > *:not(:first-child) {

@@ -37,9 +37,7 @@ export class DashComponent implements OnInit {
     this.offersWithLongLat$ = this.ds.getAllOffersWithLatLong(id);
   }
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap | undefined;
-  @ViewChild(MapInfoWindow, { static: false }) infoWindow:
-    | MapInfoWindow
-    | undefined;
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow: | MapInfoWindow | undefined;
   infoContent = '';
 
   ngOnInit() {

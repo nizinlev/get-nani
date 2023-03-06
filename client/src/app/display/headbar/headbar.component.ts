@@ -15,7 +15,8 @@ export class HeadbarComponent implements OnInit {
   username$: Observable<string>;
   localStoreData: any;
   nameLocal: string | null;
-  rateLocal: string | undefined;
+  rateLocal: number | undefined;
+  rateString: string = '';
   isActive: boolean = true;
 
   constructor(
@@ -33,7 +34,8 @@ export class HeadbarComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser$.subscribe(x=>{
-      this.rateLocal=this.showRate(x.type.rating) 
+      this.rateLocal=Number(this.showRate(x.type.rating)) 
+      this.rateString = this.showRate(x.type.rating);
     });
     
     this.__checkUserConnect();

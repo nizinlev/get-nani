@@ -16,12 +16,16 @@ mat-form-field {
     margin-bottom: 1em;
 }
 
-button[type="submit"] {
+.full-width {
+    margin: auto;
+    position: relative;
+    width: 100%;
+    margin: auto;
     display: block;
-    margin: 0 auto;
-    margin-top: 1em;
-    margin-bottom: 2em;
-}
+    justify-content: center;
+    color:#673ab7;
+    margin-bottom: 1.5em;
+  }
 .img{
     display: flex;
     justify-content: center;
