@@ -18,7 +18,7 @@ export class SuccessDialogComponent {
 
   ngOnInit() {
     // Set up the slider to automatically fill over 3 seconds
-    this.dialogRef.updateSize('50%','max-content')
+    this.dialogRef.updateSize('45%','max-content')
     const interval = setInterval(() => {
       const increment = 150/ this.duration/2;
       this.progressValue = Math.min(this.progressValue + increment, this.maxValue);

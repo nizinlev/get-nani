@@ -3,14 +3,14 @@
 </div>
 
 <mat-card>
-    <button  mat-raised-button id="out-btn" (click)="back()">
+    <button mat-raised-button id="out-btn" (click)="back()">
         <mat-icon>arrow_forward</mat-icon>back
     </button>
     <mat-card-header>
         <mat-card-title>Register</mat-card-title>
     </mat-card-header>
 
-    <mat-vertical-stepper class="mat-vertical-stepper" [linear]="false" #stepper animationDuration="300">
+    <mat-vertical-stepper class="mat-vertical-stepper" [linear]="true" #stepper animationDuration="300">
         <mat-step [stepControl]="firstFormGroup">
             <form [formGroup]="firstFormGroup">
                 <ng-template matStepLabel>Personal Details</ng-template>
@@ -147,15 +147,15 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Residence</mat-label>
-                    <input type="text" placeholder="Pick one" appearance="fill" matInput formControlName="childResidence"
-                        [matAutocomplete]="auto">
+                    <input type="text" placeholder="Pick one" appearance="fill" matInput
+                        formControlName="childResidence" [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete" textNoResults="I have found no results :(">
                         <mat-option *ngFor="let city of filterCitiesParent$ | async" [value]="city">
                             {{city}}
                         </mat-option>
                     </mat-autocomplete>
                     <mat-error *ngIf="placePare?.errors?.['required']"> enter place.</mat-error>
-                </mat-form-field>                <mat-form-field appearance="fill">
+                </mat-form-field> <mat-form-field appearance="fill">
                     <mat-label>gender</mat-label>
                     <mat-select formControlName="childGender" appearance="fill">
                         <mat-option *ngFor="let gender of genders" [value]="gender">
@@ -173,15 +173,14 @@
         <mat-step class="last">
             <ng-template matStepLabel>Confirm Credentials</ng-template>
             <h3>Almost done!!</h3><br>
-            <strong>Username:</strong> {{username?.value}}<br>
-            <strong>Phone:</strong> {{phoneNumber?.value}}<br>
-            <strong>Email:</strong> {{email?.value}}<br>
-            <strong>Password:</strong> {{password?.value}}
+            <strong>Username:</strong> {{username?.value? username?.value:'EMPTY'}}<br>
+            <strong>Phone:</strong> {{phoneNumber?.value? phoneNumber?.value:'EMPTY'}}<br>
+            <strong>Email:</strong> {{email?.value? email?.value:'EMPTY'}}<br>
+            <strong>Password:</strong> {{password?.value? password?.value:'EMPTY'}}
 
             <div>
                 <button mat-raised-button id="submit"
-                    (click)="onSubmit(firstFormGroup.value,secondFormGroup.value,role?.value !== 'parent'? naniFormGroup.value : parentFormGroup.value)"
-                    >Confirm</button>
+                    (click)="onSubmit(firstFormGroup.value,secondFormGroup.value,role?.value !== 'parent'? naniFormGroup.value : parentFormGroup.value)">Confirm</button>
                 <button mat-raised-button (click)="stepper.reset()">Reset</button>
             </div>
         </mat-step>
