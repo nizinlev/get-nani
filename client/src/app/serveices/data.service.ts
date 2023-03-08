@@ -9,7 +9,7 @@ import { catchError, combineLatest, forkJoin, map, Observable, of, shareReplay, 
   providedIn: 'root',
 })
 export class DataService {
-  private readonly BASE_URL = 'http://localhost:5000';
+  private readonly BASE_URL = 'https://get-nani.herokuapp.com';
   private REST_API_ALL_PARENTS = '/user/all_parents';
   private REST_API_ALL_NANIS = '/user/all_nanis';
   private REST_API_ADD_RATING = '/user/add_rating';

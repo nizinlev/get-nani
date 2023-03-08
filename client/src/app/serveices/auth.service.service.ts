@@ -19,7 +19,7 @@ export class AuthServiceService {
   nameLocal: string | undefined;
   isLogin: boolean | undefined;
 
-  private readonly BASE_URL = 'https://get-nani.herokuapp.com/';
+  private readonly BASE_URL = 'https://get-nani.herokuapp.com';
   public REST_API_ADD_USER = '/user/add_user';
   public REST_API_LOGIN = '/user/login';
 

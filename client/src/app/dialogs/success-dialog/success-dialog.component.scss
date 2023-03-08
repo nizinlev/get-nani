@@ -18,8 +18,14 @@
   .actions {
     display: flex;
     justify-content: space-around;
+    margin-bottom: 1em;
   }
   
+  .actions button{
+    background-color: #673ab7;
+    color:white;
+  }
+
   .primary {
     margin-top: .5em;
   }
